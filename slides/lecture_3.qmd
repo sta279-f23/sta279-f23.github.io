@@ -1,0 +1,13 @@
+---
+title: "Lecture 3"
+format: 
+  revealjs:
+    theme: theme.scss
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Class activity
+
+Continue simulation from last time, but experiment with different values of n and different distributions for the noise term

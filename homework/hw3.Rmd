@@ -1,0 +1,252 @@
+---
+title: "Homework 3"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+**Due:** Friday, September 12, 12:00pm (noon) on Canvas
+
+**Instructions:** 
+
+* Download the HW 3 template, and open the template (a Quarto document) in RStudio. 
+* Put your name in the file header
+* Click `Render`
+* Type all code and answers in the document (using `###` for section headings and `####` for question headings)
+* Render early and often to catch any errors!
+* When you are finished, submit the final rendered HTML to Canvas
+
+**Code guidelines:**
+
+* If a question requires code, and code is not provided, you will not receive full credit
+* You will be graded on the quality of your code. In addition to being correct, your code should also be easy to read
+  * No magic numbers
+  * Use descriptive names for your variables
+  * Set seeds where needed
+  * Comment code
+  * If a block of code is being called multiple times, put it in a function
+  
+**Resources:** In addition to the class notes and activities, I recommend reading the following resources:
+
+* [Chapter 5](https://adv-r.hadley.nz/control-flow.html) (loops and choices) in *Advanced R*
+* [Appendix C.2](https://mdsr-book.github.io/mdsr3e/C-algorithmic.html#simple-example) in *Modern Data Science with R*
+* [Chapter 19.1 -- 19.5.2](https://r4ds.had.co.nz/functions.html) (functions and conditions) in *R for Data Science* (1st edition)
+
+### Quantile residuals, continued
+
+On HW 2, you wrote a function `quant_resid` to generate randomized quantile residuals for a logistic regression model. In this assignment, you will use your `quant_resid` function to write a new function, which produces a quantile residual *plot* for a logistic regression model.
+
+:::{.question}
+#### Question 1
+
+Write a function, `quant_resid_plot`, which takes as input a fitted logistic regression model (the output from `glm` in R), and produces a quantile residual plot. 
+
+* The quantile residuals should be plotted on the y-axis
+* The fitted values (predicted probabilities) from the logistic regression model should be plotted on the x-axis
+* You should add a horizontal line at $y = 0$
+* The axes should be labeled appropriately
+
+Here is sample output for the `Kershaw` data from HW 2 (note: these are *randomized* quantile residuals, so it is ok if your plot looks *slightly* different):
+
+```{r, echo=F, message=F, warning=F}
+quant_resid <- function(mod){
+  yhat <- log_reg$fitted.values
+  y <- log_reg$y
+  u <- ifelse(y == 1, runif(length(y), 1-yhat, 1),
+              runif(length(y), 0, 1-yhat))
+  return(qnorm(u))
+}
+
+quant_resid_plot <- function(mod){
+  data.frame(fitted = mod$fitted.values,
+           residuals = quant_resid(mod)) |>
+  ggplot(aes(x = fitted, y = residuals)) +
+  geom_abline(slope = 0, intercept = 0, color = "blue") +
+  geom_point() +
+  labs(x = "Fitted values", y = "Residuals") +
+  theme_bw()
+}
+```
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(Stat2Data)
+data("Kershaw")
+
+log_reg <- glm(Result ~ EndSpeed, family = binomial, data = Kershaw)
+
+quant_resid_plot(log_reg)
+```
+:::
+
+Interpreting the quantile residual plot is similar to interpreting residual plots for linear regression. If the logistic regression assumptions are satisfied, then the quantile residuals should be randomly scattered around the horizontal line at 0, with no clear pattern.
+
+### Basic iteration in Python (3 ways)
+
+In HW 1, you modified code that calculated $\sqrt{x}$ for each $x = 0, 0.1, 0.2,...,1$. The `for` loop version of the code was
+
+```r
+x <- seq(from=0, to=1, by=0.1)
+sqrt_x <- rep(0, length(x))
+for(i in 1:length(x)){
+  sqrt_x[i] <- sqrt(x[i])
+}
+sqrt_x
+```
+
+and the vectorized version of the code was
+
+```r
+x <- seq(from=0, to=1, by=0.1)
+sqrt_x <- sqrt(x)
+```
+
+To help us learn some Python, let's see how to replicate this code in Python. Like R, Python is a modular language (we can get lots of extra functionality by loading extra libraries). Some of the most common modules (particularly for statistics, data science, and machine learning) are `numpy`, `scipy`, `pandas`, and `scikit-learn`.
+
+Here we will reproduce the above R code in Python, with help from the `numpy` module. Run the following Python code (e.g.: in your Quarto document, create a Python chunk, copy the code, run the Python chunk):
+
+```{python, eval=F}
+import numpy as np
+
+# create x
+x = np.linspace(0, 1, 11)
+
+# for loop version
+# create sqrt_x for output
+sqrt_x = np.zeros(11)
+for i in range(11):
+  sqrt_x[i] = np.sqrt(x[i])
+
+sqrt_x
+
+# "vectorized" version
+sqrt_x = np.sqrt(x)
+sqrt_x
+
+# list comprehension version
+sqrt_x = [np.sqrt(a) for a in x]
+sqrt_x
+```
+
+Some notes:
+
+* We have loaded the `numpy` module, and called it `np` for short. Now when we want to use the `numpy` module in our code, we will reference `np`
+* `linspace`, `zeros`, and `sqrt` are functions in the `numpy` library, so we call them using `np.linspace`, `np.zeros`, and `np.sqrt`
+* `np.linspace` works pretty similarly to the `seq` function in R. We specify the range (0 to 1) and the number of steps (11); the result is 0, 0.1, ..., 0.9, 1
+* `np.zeros(11)` is equivalent to `rep(0, 11)` in R
+* `for i in range(11)` is essentially equivalent to `for(i in 1:11)` in R. The only difference is that Python is 0-indexed, so `range(11)` is really 0, 1, 2, ..., 10
+* In R, the basic object is a vector. The equivalent of a vector in Python is probably a list, but Python lists don't behave quite the same as vectors in R -- lists are more general purpose, and just aren't customized for math. Instead, `numpy` typically uses its own object, called an `array`. This allows operations like "vectorized" functions, matrix multiplication, etc. 
+* A list comprehension is another way of iterating in Python (and in some sense is the most "Pythonic" approach). The code `[np.sqrt(a) for a in x]` means "create a list, where each entry of the list is the square root of the corresponding entry in `x`".
+* You will notice that, for both the `for` loop version and the "vectorized" versions of the code, `sqrt_x` is a numpy `array`. However, the list comprehension version produces (as we would expect!) a list instead
+
+:::{.question}
+#### Question 2
+
+Modify the Python code above to calculate $x^2$ instead of $\sqrt{x}$. (In Python, `x**2` is the equivalent of `x^2` in R). Use the 3 iteration methods discussed above (for loop, vectorization, list comprehension).
+:::
+
+:::{.question}
+#### Question 3
+
+Modify the code from Question 2 so that instead of considering $x = 0, 0.1, 0.2, ..., 0.9, 1$ (i.e. the numbers between 0 and 1, in increments of 0.1), we consider $x = 0, 0.05, 0.10, 0.15, ..., 1.95, 2$ (the numbers between 0 and 2, in increments of 0.05).
+:::
+
+### Some simulations in Python
+
+In the following questions, you will practice working in Python by re-implementing some of questions from previous assignments in Python. The following table shows you corresponding Python code for several R operations.
+
+| R code | (approximate) Python equivalent |
+| --- | --- |
+| `length` | `len` |
+| `dim(x)` | `x.shape` |
+| `seq` | `np.linspace` |
+| `rep(0, n)` | `np.zeros(n)` |
+| `runif(n, a, b)` | `np.random.uniform(a, b, n)` |
+| `mean(x)` | `np.mean(x)` |
+| `for(i in 1:n)` | `for i in range(n):` |
+| `ifelse(...)` | `np.where(...)` |
+| `x[i]` | `x[i]` (but remember python is 0-indexed) |
+| `if(...){`<br> <br>`} else {` <br> <br> `}` | `if ... :` <br> <br> `else:` |
+| `rnorm(n, mean=0, sd=0.5)` | `np.random.normal(loc=0, scale=0.5, n)` |
+| `set.seed(...)` | `np.random.seed(...)` |
+| `sample(...)` | `np.random.choice(...)` |
+
+:::{.question}
+#### Question 4
+
+Re-do Question 4 from HW 1 in Python. Confirm that you get a similar result.
+:::
+
+:::{.question}
+#### Question 5
+
+Re-do Question 1 from HW 2 in Python. Confirm that you get a similar result.
+
+*Hints:* 
+
+* R is pretty flexible with `int` (an integer) vs. `float` (a floating point number). E.g., `c(1, 2, 3)[1.5]` will return something in R. The same is not true in Python; your indices must be integers in Python
+* The `np.arange` function may be useful. For example, to generate an array of seats numbered 0 to 99, use `seats = np.arange(0, 99, 1)`
+* Remember that Python is 0-index; if `seats` has length 100, then `seats[0]` is the first entry, and `seats[99]` is the last entry
+:::
+
+### Functions in Python
+
+Here's a simple example of a function in R which takes two numbers and adds them together (this is literally what `+` does, so the function is pointless, but bear with me for the purposes of demonstration):
+
+```r
+my_sum <- function(a, b){
+  return(a + b)
+}
+```
+
+Here is the corresponding function definition in Python:
+
+```python
+def my_sum(a, b):
+  return a + b
+```
+
+Let's practice writing a short function in Python by re-writing the Huber loss function from HW 2.
+
+:::{.question}
+#### Question 6
+
+Re-do Question 6 from HW 2 in Python. Here is a code skeleton to get you started:
+
+```python
+def huber(x, a):
+
+```
+:::
+
+### Fitting logistic regression models
+
+As you learned in STA 112, *linear* regression is used with quantitative responses, whereas *logistic* regression is used for binary responses ($Y_i = 0$ or $1$). In particular, if $\pi_i = P(Y_i = 1)$, then a simple logistic regression model (with explanatory variable $X_i$) is
+$$\log \left( \frac{\pi_i}{1 - \pi_i} \right) = \beta_0 + \beta_1 X_i$$
+
+As an example, consider a dataset of 3402 pitches thrown by MLB pitcher Clayton Kershaw in the 2013 season. The data is contained in the `Kershaw` data set, in the `Stat2Data` R package. We will focus on two specific variables for each pitch: 
+
+* `Result`: a negative result (a ball or a hit), or a positive result (a strike or an out)
+* `EndSpeed`: the speed at which the ball crossed home plate (in mph)
+
+Our goal is to investigate the relationship between pitch speed and result. We can fit a logistic regression model, with `EndSpeed` as the explanatory variable and `Result` as the response:
+
+```{r, eval=F}
+library(Stat2Data)
+data("Kershaw")
+
+log_reg <- glm(Result ~ EndSpeed, family = binomial, data = Kershaw)
+summary(log_reg)
+```
+
+So far, so good! But how is the `glm` function calculating the estimates $\widehat{\beta}_0$ and $\widehat{\beta}_1$? As you can see from the output, an iterative process called *Fisher scoring* is used. Fisher scoring works like this:
+
+* Let $\beta = \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}$ (a vector containing both parameters, $\beta_0$ and $\beta_1$, which we want to estimate)
+* Let $\beta^{(0)}$ be some initial guess for $\beta$
+* Now we update our initial guess:
+$$\beta^{(1)} = \beta^{(0)} + \mathcal{I}^{-1}(\beta^{(0)}) \mathcal{U}(\beta^{(0)})$$
+* Continue 
+
+
