@@ -1,5 +1,5 @@
 ---
-title: "Lecture 1"
+title: "Lecture 1: Intro to simulation"
 format: 
   revealjs:
     theme: theme.scss
@@ -8,14 +8,13 @@ editor_options:
   chunk_output_type: console
 ---
 
-
 ## Warm-up question
 
 **Problem:** 10 people are at a party, and all of them are wearing hats. They each place their hat in a pile; when they leave, they choose a hat at random. What is the probability at least one person selected the correct hat?
 
 **Question:** Work with your neighbor to discuss the following question:
 
-* Without calculating probabilities, how could you design an experiment to estimate this probability?
+-   Without calculating probabilities, how could you design an experiment to estimate this probability?
 
 ## Designing an experiment
 
@@ -28,8 +27,8 @@ hats
 hats[3]
 ```
 
-* `hats` is a **vector**, containing the numbers 1 to 10
-* entries in a vector are accessed by their index
+-   `hats` is a **vector**, containing the numbers 1 to 10
+-   entries in a vector are accessed by their index
 
 ## Step 2: everyone draws a random hat
 
@@ -41,8 +40,8 @@ hats
 randomized_hats
 ```
 
-* The `sample` function creates a random sample from a vector
-* How many people selected their original hat?
+-   The `sample` function creates a random sample from a vector
+-   How many people selected their original hat?
 
 ## Step 3: check who got their original hat
 
@@ -77,7 +76,7 @@ randomized_hats <- sample(hats, size = 10, replace = FALSE)
 sum(hats == randomized_hats) > 0
 ```
 
-* Is this a good estimate of the probability?
+-   Is this a good estimate of the probability?
 
 ## Step 4: iteration
 
@@ -125,7 +124,7 @@ for(i in 1:nsim){
 mean(results)
 ```
 
-* What if I wanted to repeat the simulation, with a different number of people?
+-   What if I wanted to repeat the simulation, with a different number of people?
 
 ## Removing magic numbers
 
@@ -148,8 +147,7 @@ for(i in 1:nsim){
 mean(results)
 ```
 
-* Why did I get different results?
-
+-   Why did I get different results?
 
 ## Final code
 
@@ -174,28 +172,13 @@ mean(results)
 
 ## Summary of coding practices
 
-* avoid magic numbers
-* set a seed for reproducibility
-* use meaningful names
-* add comments
+-   avoid magic numbers
+-   set a seed for reproducibility
+-   use meaningful names
+-   add comments
 
 ## Class activity
 
-## Birthday problem
+Work with a neighbor on the class activity (link below and on the course website):
 
-```{r}
-set.seed(97)
-
-possible_bdays <- 1:365 # all possible birthdays
-nsim <- 2000
-M <- 25
-results <- rep(NA, nsim)
-
-for(i in 1:nsim){
-  observed_bdays <- sample(possible_bdays, M, replace=T)
-  results[i] <- length(unique(observed_bdays)) < M
-}
-
-mean(results)
-```
-
+[https://sta279-f23.github.io/class_activities/ca_lecture_1.html](https://sta279-f23.github.io/class_activities/ca_lecture_1.html)
