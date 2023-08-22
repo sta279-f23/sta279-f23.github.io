@@ -21,7 +21,7 @@ timeline:
 schedule:
   - name: Monday
     events:
-      - name: STA 214 Class
+      - name: STA 279 Class
         start: 11:00 AM
         end: 11:50 AM
         location: Manchester 241
@@ -35,7 +35,7 @@ schedule:
   - name: Thursday
   - name: Friday
     events:
-      - name: STA 214 Class
+      - name: STA 279 Class
         start: 11:00 AM
         end: 11:50 AM
         location: Manchester 241

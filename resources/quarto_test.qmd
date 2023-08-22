@@ -1,4 +1,6 @@
 ---
+---
+---
 title: "Test software installation"
 format: html
 editor: visual
@@ -40,7 +42,3 @@ import numpy as np
 
 np.zeros(5)
 ```
-
-
-
-

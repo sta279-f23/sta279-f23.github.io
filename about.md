@@ -20,7 +20,7 @@ description: >-
 
 ## Overview
 
-Welcome to STA 279! This course is an introduction to statistical computing. Our overall goal will be to get more familiar with some of the important computational tools for statistics and data science. We will build on STA 112 and learn more about R as we cover topics in simulation, data wrangling, and text data. You will also be introduced to Python and SQL, and you will use Git and GItHub for version control. Throughout the semester you will work with real data and a variety of statistical problems, and we will emphasize reproducibility and thoughtful coding.
+Welcome to STA 279! This course is an introduction to statistical computing. Our overall goal will be to get more familiar with some of the important computational tools for statistics and data science. We will build on STA 112 and learn more about R as we cover topics in simulation, data wrangling, and text data. You will also be introduced to Python and SQL, and you will use Git and GitHub for version control. Throughout the semester you will work with real data and a variety of statistical problems, and we will emphasize reproducibility and thoughtful coding.
 
 **Prerequisites:** The only prerequisite for this course is STA 112. No other coding experience is assumed. Please note that if you do have extensive coding experience, much of the material in STA 279 will already be familiar to you.
 
