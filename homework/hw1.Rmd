@@ -7,11 +7,11 @@ output:
 link-citations: yes
 ---
 
-**Due:** Friday, September 8, 12:00pm (noon) on Canvas
+**Due:** Friday, September 8, 11:00am on Canvas
 
 **Instructions:** 
 
-* Download the HW 1 template, and open the template (a Quarto document) in RStudio. 
+* Download the [HW 1 template](https://sta279-f23.github.io/hw_1_template.qmd), and open the template (a Quarto document) in RStudio. 
 * Put your name in the file header
 * Click `Render`
 * Type all code and answers in the document (using `###` for section headings and `####` for question headings)

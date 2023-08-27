@@ -11,8 +11,11 @@ August 28
 
 August 30
 : Simulation
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_2.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_2.pdf)
 
 September 1
-: Simulation
+: Designing simulations
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_3.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_3.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_3.html)
 
 : **Homework 1 released**{: .label .label-yellow }
+  : [HW 1](https://sta279-f23.github.io/homework/hw1.html)
