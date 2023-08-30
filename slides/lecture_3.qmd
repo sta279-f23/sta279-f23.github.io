@@ -3,7 +3,7 @@ title: "Lecture 3: Designing simulations"
 format: 
   revealjs:
     theme: theme.scss
-editor: visual
+editor: source
 editor_options: 
   chunk_output_type: console
 ---
@@ -16,7 +16,7 @@ That is, how important is the assumption that $\varepsilon_i \sim N(0, \sigma^2)
 
 Continue simulation from last time, but experiment with different values of $n$ and different distributions for the noise term.
 
-[https://sta279-f23.github.io/class_activities/ca_lecture_3.html](https://sta279-f23.github.io/class_activities/ca_lecture_3.html)
+<https://sta279-f23.github.io/class_activities/ca_lecture_3.html>
 
 ## Class activity
 
@@ -48,20 +48,18 @@ mean(results)
 
 ## ADEMP: A useful framework for simulation studies
 
-* **Aims:** Why are we doing the study?
-* **Data generation:** How are the data simulated?
-* **Estimand/target:** What are we estimating for each simulated dataset?
-* **Methods:** What methods are we using for model fitting, estimation, etc?
-* **Performance measures:** How do we measure performance of our chosen methods?
+-   **Aims:** Why are we doing the study?
+-   **Data generation:** How are the data simulated?
+-   **Estimand/target:** What are we estimating for each simulated dataset?
+-   **Methods:** What methods are we using for model fitting, estimation, etc?
+-   **Performance measures:** How do we measure performance of our chosen methods?
 
 ## ADEMP
 
 For the normal errors simulation study:
 
-* **Aims:** 
-* **Data generation:** 
-* **Estimand/target:** 
-* **Methods:** 
-* **Performance measures:**
-
-
+-   **Aims:**
+-   **Data generation:**
+-   **Estimand/target:**
+-   **Methods:**
+-   **Performance measures:**
