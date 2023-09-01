@@ -54,9 +54,12 @@ If you have any questions about the course (or statistics in general!), please d
 
 Keep in mind that debugging software issues can take time, so make sure to start the assignments early in case you run into problems.
 
-**Office hours:** TBA
+**Office hours:** Drop-in office hours will be held in Manchester 329 at the following times:
 
-**Study session:** TBA
+  * Wednesdays 12-1pm
+  * Thursdays 2-3pm
+
+**Study session:** Wednesdays 7-8pm, Manchester 125
 
 
 ## Course policies

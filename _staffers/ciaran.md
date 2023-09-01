@@ -6,4 +6,7 @@ website: https://ciaran-evans.github.io/
 photo: ciaran.jpg
 ---
 
-Office hours: TBA
+Office hours: 
+
+* Wednesday 12-1pm
+* Thursday 2-3pm
