@@ -3,7 +3,7 @@ title: "Lecture 2"
 format: 
   revealjs:
     theme: theme.scss
-editor: visual
+editor: source
 editor_options: 
   chunk_output_type: console
 ---
@@ -70,7 +70,6 @@ money <- ifelse(spin == "red", money + 1, money - 1)
 spin
 money
 ```
-
 
 ## Step 4: keep spinning
 
@@ -276,43 +275,37 @@ mean(results)
 
 ## Course goals
 
-* Develop computing skills to work with data and answer statistical questions
-* Emphasize reproducibility and good coding practices
-* Introduce other important computing tools for statistics and data science (Python, SQL, Git)
+-   Develop computing skills to work with data and answer statistical questions
+-   Emphasize reproducibility and good coding practices
+-   Introduce other important computing tools for statistics and data science (Python, SQL, Git)
 
 **What this course isn't:**
 
-* An exhaustive list of R or Python functions
-* A computer science course
-* A deep dive into how R actually works
+-   An exhaustive list of R or Python functions
+-   A computer science course
+-   A deep dive into how R actually works
 
 ## Tentative topics
 
-* Simulation
-* Intro to Python
-* Data wrangling and manipulation
-* Intro to SQL
-* Version control and reproducibility
-* Working with text data
-* Time permitting: select advanced topics
+-   Simulation
+-   Intro to Python
+-   Data wrangling and manipulation
+-   Intro to SQL
+-   Version control and reproducibility
+-   Working with text data
+-   Time permitting: select advanced topics
 
 ## Course components
 
-| Component | Weight |
-| --------- | ------ |
-| Homework |  50%   |
-| Midterm exam    |  10%   |
-| Final exam | 20% |
-| Project | 20% |
+| Component    | Weight |
+|--------------|--------|
+| Homework     | 50%    |
+| Midterm exam | 10%    |
+| Final exam   | 20%    |
+| Project      | 20%    |
 
 ## Diversity and inclusion
 
-In this class, we will embrace diversity of age, background, beliefs,
-ethnicity, gender, gender identity, gender expression, national
-origin, neurotype, race, religious affiliation, sexual orientation, and
-other visible and non-visible categories. The university and I do
-not tolerate discrimination.
+In this class, we will embrace diversity of age, background, beliefs, ethnicity, gender, gender identity, gender expression, national origin, neurotype, race, religious affiliation, sexual orientation, and other visible and non-visible categories. The university and I do not tolerate discrimination.
 
-* You deserve to be addressed in the manner you prefer. To guarantee that I address you properly, you are welcome to tell me your pronoun(s) and/or preferred name at any time, either in person or via email.
-
-
+-   You deserve to be addressed in the manner you prefer. To guarantee that I address you properly, you are welcome to tell me your pronoun(s) and/or preferred name at any time, either in person or via email.
