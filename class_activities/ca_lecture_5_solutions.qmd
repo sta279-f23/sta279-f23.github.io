@@ -1,0 +1,73 @@
+---
+title: "Class activity, September 6 solutions"
+format: html
+editor: visual
+author: "Ciaran Evans"
+---
+
+## What will happen?
+
+For each question, predict what will happen when the code is run. Then run the code and check whether your prediction was correct.
+
+1. Since `x` is 10, `g02(x)` returns 11. But values defined inside a function don't impact the global environment, so calling `g02` doesn't change the value of `x`. Therefore `x + 1` still returns `11`.
+
+```{r}
+x <- 10
+
+g02 <- function(x){
+  x <- x + 1
+  return(x)
+}
+
+g02(x)
+x + 1
+```
+
+
+2. Since `x` is 10, `g02(x)` returns 11. This output is stored in `x`, so the variable `x` has been overwritten and is now `11`. When we run `x + 1`, we therefore get `12`.
+
+```{r}
+x <- 10
+
+g02 <- function(x){
+  x <- x + 1
+  return(x)
+}
+
+x <- g02(x)
+x + 1
+```
+
+
+3. When functions are nested inside each other, the *inner* function evaluates first. So, first R calculates `g02(20)`, which is 19. This output is then used directly as the *input* for a second call to `g02`, and `g02(19)` returns `18`.
+
+```{r}
+g02 <- function(y){
+  y <- y - 1
+  return(y)
+}
+
+g02(g02(20))
+```
+
+
+## Practice with anonymous functions
+
+4. Use the `integrate()` and an anonymous function to find the area under the curve for the following functions:
+
+* `y = x^2 - x` for x in $[0, 1]$
+* `y = sin(x) + cos(x)` for x in $[-\pi, \pi]$
+* `y = exp(x)/x` for x in $[10, 20]$
+
+```{r}
+integrate(function(x) {x^2 - x}, 0, 1)
+```
+
+```{r}
+integrate(function(x) {sin(x) + cos(x)}, -pi, pi)
+```
+
+```{r}
+integrate(function(x) {exp(x)/x}, 10, 20)
+```
+

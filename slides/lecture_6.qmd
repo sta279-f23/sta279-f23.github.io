@@ -1,0 +1,102 @@
+---
+title: "Lecture 6: Objects"
+format: 
+  revealjs:
+    theme: theme.scss
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
+
+## Iterating over functions
+
+So far:
+
+```{r, echo=T}
+set.seed(45)
+
+# Simulate from a N(0,1)
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = rnorm)
+
+# Simulate from Exp(1)
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = rexp)
+
+# Simulate from chisquare(1)
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = function(m) {return(rchisq(m, df=1))})
+```
+
+What if I want to simulate from *many* distributions?
+
+## Idea
+
+## Vectors of functions?
+
+Vectors can contain numbers, booleans, characters, etc:
+
+```{r, echo=T}
+x <- c(0, 1, 2)
+x
+
+x <- c("a", "b", "c")
+x
+```
+
+
+Can we make a vector of *functions*?
+
+## Vectors of functions?
+
+Can we make a vector of *functions*?
+
+```{r, echo=T}
+x <- c(rexp, rnorm, function(m) {return(rchisq(m, df=1))})
+x
+```
+
+## Vectors of functions?
+
+Can we make a vector of *functions*?
+
+```{r, echo=T}
+x <- c(rexp, rnorm, function(m) {return(rchisq(m, df=1))})
+x[1]
+x[1](10)
+```
+
+## Vectors of functions?
+
+Can we make a vector of *functions*?
+
+```{r, echo=T}
+x <- c(rexp, rnorm, function(m) {return(rchisq(m, df=1))})
+x[[1]]
+x[[1]](10)
+```
+
+## Lists
+
+A *list* is a sort of vector that allows us to combine objects of different types
+
+## Iterating over functions
+
+```{r, echo=T}
+set.seed(45)
+
+noise_dists <- list(rnorm, rexp, 
+                    function(m) {return(rchisq(m, df=1))})
+ci_coverage <- rep(NA, length(noise_dists))
+
+for(i in 1:length(noise_dists)){
+  ci_coverage[i] <- assess_coverage(n = 100, nsim = 1000, 
+                                    beta0 = 0.5, beta1 = 1, 
+                                    noise_dist = noise_dists[[i]])
+}
+
+ci_coverage
+```
+
+
+## Lists (vs. vectors)

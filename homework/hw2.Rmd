@@ -7,11 +7,11 @@ output:
 link-citations: yes
 ---
 
-**Due:** Friday, September 15, 12:00pm (noon) on Canvas
+**Due:** Friday, September 15, 11:00am on Canvas
 
 **Instructions:** 
 
-* Download the HW 2 template, and open the template (a Quarto document) in RStudio. 
+* Download the [HW 2 template](https://sta279-f23.github.io/homework/hw_2_template.qmd), and open the template (a Quarto document) in RStudio. 
 * Put your name in the file header
 * Click `Render`
 * Type all code and answers in the document (using `###` for section headings and `####` for question headings)
@@ -111,15 +111,7 @@ $$\psi_a(x) = \begin{cases} x^2 & \text{if } |x| \leq a \\ 2|x| - 1 & \text{if }
 :::{.question}
 #### Question 6
 
-Starting with your solution code to Question 4, update your `huber()` function so that it takes two arguments: $x$, a number at which to evaluate the loss, and $a$ a number representing the cutoff value. It should now return $\psi_a(x)$, as defined above.
-
-Here is a code skeleton to get you started:
-
-```r
-huber <- function(x, a){
-
-}
-```
+Starting with your solution code to Question 4, update your `huber()` function so that it takes two arguments: $x$, a number at which to evaluate the loss, and $a$ a number representing the cutoff value. It should now return $\psi_a(x)$, as defined above. Make $a = 1$ the *default* in your `huber` function.
 :::
 
 
@@ -136,6 +128,7 @@ As an example, consider a dataset of 3402 pitches thrown by MLB pitcher Clayton 
 Our goal is to investigate the relationship between pitch speed and result. We can fit a logistic regression model, with `EndSpeed` as the explanatory variable and `Result` as the response:
 
 ```{r, eval=F}
+library(tidyverse)
 library(Stat2Data)
 data("Kershaw")
 

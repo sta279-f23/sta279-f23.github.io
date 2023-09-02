@@ -1,0 +1,63 @@
+---
+title: "Class Activity"
+output: 
+  tufte::tufte_html:
+    css: "lab.css"
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+
+**Instructions:** Work with a neighbor to answer the following questions, then we will discuss the activity as a class. To get started, download the [class activity template](https://sta279-f23.github.io/class_activities/ca_lecture_5_template.qmd) file.
+
+## What will happen?
+
+For each question, predict what will happen when the code is run. Then run the code and check whether your prediction was correct.
+
+1. 
+
+```{r, eval=F}
+x <- 10
+
+g02 <- function(x){
+  x <- x + 1
+  return(x)
+}
+
+g02(x)
+x + 1
+```
+
+2.
+
+```{r, eval=F}
+x <- 10
+
+g02 <- function(x){
+  x <- x + 1
+  return(x)
+}
+
+x <- g02(x)
+x + 1
+```
+
+3. 
+
+```{r, eval=F}
+g02 <- function(y){
+  y <- y - 1
+  return(y)
+}
+
+g02(g02(20))
+```
+
+## Practice with anonymous functions
+
+4. Use the `integrate()` and an anonymous function to find the area under the curve for the following functions:
+
+* `y = x^2 - x` for x in $[0, 1]$
+* `y = sin(x) + cos(x)` for x in $[-\pi, \pi]$
+* `y = exp(x)/x` for x in $[10, 20]$
+

@@ -1,0 +1,316 @@
+---
+title: "Lecture 5: More functions"
+format: 
+  revealjs:
+    theme: theme.scss
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
+
+## Last time
+
+```{r, echo=T}
+assess_coverage <- function(n, nsim, beta0, beta1, noise_dist){
+  results <- rep(NA, nsim)
+
+  for(i in 1:nsim){
+    x <- runif(n, min=0, max=1)
+    noise <- noise_dist(n)
+    y <- beta0 + beta1*x + noise
+
+    lm_mod <- lm(y ~ x)
+    ci <- confint(lm_mod, "x", level = 0.95)
+    results[i] <- ci[1] < beta1 & ci[2] > beta1
+  }
+  return(mean(results))
+}
+```
+
+## Function defaults
+
+```{r, echo=T, eval=F}
+assess_coverage <- function(n, nsim, beta0, beta1, noise_dist){
+  ...
+}
+```
+
+```{r, echo=T}
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = rexp)
+```
+
+What if I wanted `noise_dist` to be the $N(0, 1)$ distribution instead?
+
+## Function defaults
+
+```{r, echo=T, eval=F}
+assess_coverage <- function(n, nsim, beta0, beta1, noise_dist){
+  ...
+}
+```
+
+```{r, echo=T}
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = rnorm)
+```
+
+What if I wanted `noise_dist` to be the $\chi^2_1$ distribution?
+
+## Function defaults
+
+```{r, echo=T, eval=F}
+assess_coverage <- function(n, nsim, beta0, beta1, noise_dist){
+  ...
+}
+```
+
+```{r, echo=T, error=T}
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = rchisq)
+```
+
+## Function defaults
+
+```{r, echo=T, eval=F}
+?rexp
+```
+
+**Description**
+
+Density, distribution function, quantile function and random generation for the exponential distribution with rate `rate` (i.e., mean `1/rate`).
+
+**Usage**
+
+`rexp(n, rate = 1)`
+
+* The *default* value of `rate` is 1!
+
+## Function defaults
+
+`rexp(n, rate = 1)`
+
+The *default* value of `rate` is 1!
+
+Same results:
+```{r, echo=T}
+set.seed(93)
+rexp(n=1)
+
+set.seed(93)
+rexp(n=1, rate=1)
+```
+
+Different result:
+```{r, echo=T}
+set.seed(93)
+rexp(n=1, rate=2)
+```
+
+
+## Function defaults
+
+```{r, echo=T, eval=F}
+?rnorm
+```
+
+**Description**
+
+Density, distribution function, quantile function and random generation for the normal distribution with mean equal to `mean` and standard deviation equal to `sd`.
+
+**Usage**
+
+`rnorm(n, mean = 0, sd = 1)`
+
+## Function defaults
+
+```{r, echo=T, eval=F}
+?rchisq
+```
+
+**Usage**
+
+`rchisq(n, df, ncp = 0)`
+
+* There is no default for `df` in the `rchisq` function!
+
+```{r, echo=T, error=T}
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = rchisq)
+```
+
+* How can we use a $\chi^2_1$ for `noise_dist`?
+
+## Two options
+
+**Option 1:** Create a new function
+
+```{r, echo=T}
+set.seed(73)
+
+chisq_1 <- function(m){
+  return(rchisq(m, df=1))
+}
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = chisq_1)
+```
+
+**Option 2:** Anonymous functions
+
+```{r, echo=T}
+set.seed(73)
+
+assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
+                noise_dist = function(m) {return(rchisq(m, df=1))})
+```
+
+## Anonymous functions
+
+We use anonymous functions when we don't need a name for them.
+
+Example:
+
+```{r, echo=T}
+integrate(function(x) {sin(x)^2}, 0, pi)
+```
+
+## Function scoping
+
+What value will the following code return?
+
+```{r, echo=T, eval=F}
+g01 <- function(x = 10) {
+  return(x)
+}
+
+g01()
+```
+
+## Function scoping
+
+What value will the following code return?
+
+```{r, echo=T}
+g01 <- function(x = 10) {
+  return(x)
+}
+
+g01()
+```
+
+What if I try to look at `x`?
+
+```{r, echo=T, eval=F}
+x
+```
+
+## Function scoping
+
+What value will the following code return?
+
+```{r, echo=T}
+g01 <- function(x = 10) {
+  return(x)
+}
+
+g01()
+```
+
+What if I try to look at `x`?
+
+```{r, echo=T, error = T}
+x
+```
+
+* Variables created within functions don't exist outside the function!
+
+## Function scoping
+
+Variables created within functions don't exist outside the function!
+
+```{r, echo=T, error=T}
+g01 <- function() {
+  x <- 10
+  return(x)
+}
+
+g01()
+x
+```
+
+## Function scoping
+
+What will the following code return?
+
+```{r, echo=T, eval=F}
+x <- 10
+
+g01 <- function(){
+  return(x)
+}
+
+g01()
+```
+
+## Function scoping
+
+```{r, echo=T}
+x <- 10
+
+g01 <- function(){
+  return(x)
+}
+
+g01()
+x
+```
+
+* If a variable is not defined in a function, R looks outside the function (the *global environment*)
+
+
+## Name masking
+
+What value will the following code return?
+
+```{r, echo=T, eval=F}
+x <- 10
+g01 <- function() {
+  x <- 20
+  return(x)
+}
+
+g01()
+x
+```
+
+## Name masking
+
+What value will the following code return?
+
+```{r, echo=T}
+x <- 10
+g01 <- function() {
+  x <- 20
+  return(x)
+}
+
+g01()
+x
+```
+
+* Names defined inside a function *mask* names defined outside a function
+* Variables created within a function don't exist outside
+
+## Summary
+
+* Anonymous functions can be used if we don't need to name them
+* Variables created within a function don't exist outside
+* If a variable is not defined in a function, R looks outside the function
+* Names defined inside a function *mask* names defined outside a function
+
+## Class activity
+
+[https://sta279-f23.github.io/class_activities/ca_lecture_5.html](https://sta279-f23.github.io/class_activities/ca_lecture_5.html)
+
+* If finished early, you may work on homework
+* Solutions will be posted on course website
