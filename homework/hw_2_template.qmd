@@ -1,6 +1,10 @@
 ---
+---
+---
 title: "Homework 2"
-format: html
+format: 
+  html:
+    embed-resources: true
 editor: source
 author: "Your name"
 ---
