@@ -26,6 +26,33 @@ mean(results)
 
 
 
+a <- 20
+boxes <- sample(1:a, a, replace=F)
+seen <- rep(0, a)
+
+for(i in 1:a){
+  selected_boxes <- sample(boxes, a/2, replace=F)
+  seen[i] <- i %in% selected_boxes
+}
+seen
+
+
+
+a <- 20
+boxes <- sample(1:a, a, replace=F)
+seen <- rep(0, a)
+
+for(i in 1:a){
+  selected_boxes <- sample(boxes, a/2, replace=F)
+  seen[i] <- i %in% selected_boxes
+  if(seen[i] == 0){
+    seen[i] <- rbinom(1, 1, 0.5)
+  }
+}
+seen
+
+
+
 
 huber <- function(x){
   huber_val <- ifelse(abs(x) <= 1, x^2, 2*abs(x) - 1)
@@ -38,9 +65,6 @@ quant_resid <- function(mod){
   u <- ifelse(y == 1, runif(length(y), 1-yhat, 1),
               runif(length(y), 0, 1-yhat))
 }
-
-
-
 
 
 # HW 3

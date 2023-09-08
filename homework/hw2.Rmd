@@ -63,6 +63,14 @@ Now, each player $i ∈ {1, 2, ..., a}$ can look in at most $a/2$ boxes and base
 #### Question 2
 
 Conduct a simulation where the lead player colors the slips and adds them to the boxes at random. The other players randomly choose which boxes to open. What proportion of the time do all of the players see their own slip, guaranteeing they win? Does the proportion depend on $a$?
+
+*Tip:* To efficiently check whether a vector contains a specific value, you can use `%in%`. For example,
+
+```{r}
+3 %in% c(1, 2, 3)
+4 %in% c(1, 2, 3)
+```
+
 :::
 
 :::{.question}
