@@ -1,0 +1,71 @@
+---
+title: "Class Activity"
+output: 
+  tufte::tufte_html:
+    css: "lab.css"
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+
+**Instructions:** Work with a neighbor to answer the following questions, then we will discuss the activity as a class. To get started, download the [class activity template](https://sta279-f23.github.io/class_activities/ca_lecture_8_template.qmd) file.
+
+# Review (so far)
+
+So far, we have learned a lot about R and computing beyond what we saw in STA 112. We have covered vectors, random sampling, `for` and `while` loops, simulation studies, functions (including defaults and anonymous functions), and lists. The purpose of this class activity is to briefly review some of the core R tools we have covered. (This review is not fully comprehensive).
+
+## Vectors
+
+1. Create a vector containing `NA` repeated 100 times.
+
+2. Create a vector containing `0` repeated 3 times.
+
+3. Create a vector containing the numbers 0, 0.01, 0.02,..., 3 (the sequence from 0 to 3, incrementing by 0.01).
+
+4. What is the 23rd entry in the vector you created in question 3?
+
+5. Take the square root of all entries of the vector in question 3, using a `for` loop.
+
+6. Take the square root of all entries of the vector in question 3, *without* using a `for` loop.
+
+## Random sampling
+
+7. Choose a random sample of 10 integers between 1 and 100, *without* replacement.
+
+8. Choose a random sample of 10 integers between -2 and 2, *with* replacement.
+
+9. Sample 1000 observations from a $N(3, 11)$ distribution (11 is the *variance*, not the standard deviation).
+
+## Functions
+
+10. Write a function with the following specifications:
+
+* Arguments: a sample size `n`, a slope `beta1`, and an intercept `beta0`
+* Simulates $(X_1, Y_1),...,(X_n, Y_n)$ with $X_i \sim N(0, 1)$ and $Y_i = \beta_0 X_i^{\beta_1}$
+* Returns a plot of $Y_i$ vs. $X_i$
+
+11. Write a function with the following specifications:
+
+* Arguments: a sample size `n`, a slope `beta1`, and an intercept `beta0`
+* Simulates $(X_1, Y_1),...,(X_n, Y_n)$ with $X_i \sim N(0, 1)$ and $Y_i = \beta_0 X_i^{\beta_1}$
+* Returns a list of length 2, where the first component contains the $X_i$, and the second component contains the $Y_i$
+
+## Lists
+
+12. Create a list `x` such that the vector `c(2, 7, 9)` can be extracted with `x[[2]][[2]]`.
+
+13. Explain why the following code causes an error:
+
+```{r, error=T}
+x <- list(function(n){return(rnorm(n, mean=0, sd=3))},
+          function(n){return(runif(n, min=0, max=1))})
+
+x[1](10)
+```
+
+14. Modify the code in question 13 to sample 10 observations from a $N(0, 9)$ distribution.
+
+
+
+
+

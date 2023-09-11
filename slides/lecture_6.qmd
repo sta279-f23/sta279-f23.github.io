@@ -1,5 +1,5 @@
 ---
-title: "Lecture 6: Objects"
+title: "Lecture 6"
 format: 
   revealjs:
     theme: theme.scss
@@ -8,95 +8,292 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Iterating over functions
+## HW 2, Question 2
 
-So far:
+* There are $a$ boxes, and slips of paper with the numbers $1,...,a$. The slips of paper are randomly added to the boxes.
+* Each player $i = 1,...,a$ is going to try to find their slip of paper (the one with their number)
+* Each player randomly selects $a/2$ boxes to open
+* What is the probability that *all* players find their slip of paper when opening the boxes?
+
+## Tips on where to start
+
+* There are $a$ boxes, and slips of paper with the numbers $1,...,a$. The slips of paper are randomly added to the boxes.
+* Each player $i = 1,...,a$ is going to try to find their slip of paper (the one with their number)
+* Each player randomly selects $a/2$ boxes to open
+* What is the probability that *all* players find their slip of paper when opening the boxes?
+
+## Making a plan
+
+Imagine we were doing this with real people. What would we do?
+
+## Step 1: create the slips of paper
 
 ```{r, echo=T}
-set.seed(45)
-
-# Simulate from a N(0,1)
-assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
-                noise_dist = rnorm)
-
-# Simulate from Exp(1)
-assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
-                noise_dist = rexp)
-
-# Simulate from chisquare(1)
-assess_coverage(n = 100, nsim = 1000, beta0 = 0.5, beta1 = 1,
-                noise_dist = function(m) {return(rchisq(m, df=1))})
+a <- 10
+slips <- 1:a
 ```
 
-What if I want to simulate from *many* distributions?
-
-## Idea
-
-## Vectors of functions?
-
-Vectors can contain numbers, booleans, characters, etc:
+## Step 2: randomly assign the slips to boxes
 
 ```{r, echo=T}
-x <- c(0, 1, 2)
-x
-
-x <- c("a", "b", "c")
-x
+a <- 10
+slips <- 1:a
 ```
 
+**Question:** How do I randomly shuffle the entries in a vector?
 
-Can we make a vector of *functions*?
-
-## Vectors of functions?
-
-Can we make a vector of *functions*?
+## Step 2: randomly assign the slips to boxes
 
 ```{r, echo=T}
-x <- c(rexp, rnorm, function(m) {return(rchisq(m, df=1))})
-x
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
+boxes
 ```
 
-## Vectors of functions?
+**Question:** What does `boxes[i]` represent?
 
-Can we make a vector of *functions*?
+## Step 3: a player randomly chooses boxes
 
-```{r, echo=T}
-x <- c(rexp, rnorm, function(m) {return(rchisq(m, df=1))})
-x[1]
-x[1](10)
+```{r, echo=T, eval=F}
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
 ```
 
-## Vectors of functions?
+**Question:** how should we randomly select which boxes to open?
 
-Can we make a vector of *functions*?
+## Step 3: a player randomly chooses boxes
 
-```{r, echo=T}
-x <- c(rexp, rnorm, function(m) {return(rchisq(m, df=1))})
-x[[1]]
-x[[1]](10)
+```{r, echo=T, eval=F}
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
 ```
 
-## Lists
+```{r, echo=T}
+opened_boxes <- sample(1:a, a/2, replace = F)
+opened_boxes
+```
 
-A *list* is a sort of vector that allows us to combine objects of different types
+**Question:** how do we see which slips of paper were in these boxes?
 
-## Iterating over functions
+## Step 3: a player randomly chooses boxes
+
+```{r, echo=T, eval=F}
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
+opened_boxes <- sample(1:a, a/2, replace = F)
+```
 
 ```{r, echo=T}
-set.seed(45)
+boxes[opened_boxes]
+```
 
-noise_dists <- list(rnorm, rexp, 
-                    function(m) {return(rchisq(m, df=1))})
-ci_coverage <- rep(NA, length(noise_dists))
+## Step 4: check if players number is in the opened boxes
 
-for(i in 1:length(noise_dists)){
-  ci_coverage[i] <- assess_coverage(n = 100, nsim = 1000, 
-                                    beta0 = 0.5, beta1 = 1, 
-                                    noise_dist = noise_dists[[i]])
+Suppose Player 1 has opened the boxes:
+
+```{r, echo=T, eval=F}
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
+opened_boxes <- sample(1:a, a/2, replace = F)
+```
+
+```{r, echo=T}
+boxes[opened_boxes]
+1 %in% boxes[opened_boxes]
+```
+
+## Step 4: repeat for all the players
+
+```{r, echo=T, eval=F}
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
+opened_boxes <- sample(1:a, a/2, replace = F)
+1 %in% boxes[opened_boxes]
+```
+
+**Question:** How do I repeat this process for all $a$ players?
+
+## Step 4: repeat for all the players
+
+```{r, echo=T, eval=F}
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
+
+for(player in 1:a){
+  opened_boxes <- sample(1:a, a/2, replace = F)
+  player %in% boxes[opened_boxes]
+}
+```
+
+**Question:** How do we check whether all players saw their number?
+
+## Step 4: repeat for all the players
+
+```{r, echo=T}
+a <- 10
+slips <- 1:a
+boxes <- sample(slips, a, replace=F)
+player_results <- rep(NA, a)
+
+for(player in 1:a){
+  opened_boxes <- sample(1:a, a/2, replace = F)
+  player_results[player] <- player %in% boxes[opened_boxes]
+}
+player_results
+sum(player_results) == a
+```
+
+**Question:** How do we repeat this code many times to estimate a probability?
+
+## Step 5: repeat the whole game many times
+
+```{r, echo=T}
+set.seed(27)
+a <- 10
+slips <- 1:a
+ngames <- 1000
+game_results <- rep(NA, ngames)
+```
+
+```{r, echo=T}
+for(i in 1:ngames){
+  boxes <- sample(slips, a, replace=F)
+  player_results <- rep(NA, a)
+  for(player in 1:a){
+    opened_boxes <- sample(1:a, a/2, replace = F)
+    player_results[player] <- player %in% boxes[opened_boxes]
+  }
+  game_results[i] <- sum(player_results) == a
 }
 
-ci_coverage
+mean(game_results)
+```
+
+## HW 2, Question 3: modifying the game
+
+* Each slip is labeled $1,...,a$ and randomly colored red or blue
+* Each player $i = 1,...,a$ is going to try to find their slip of paper (the one with their number)
+* Each player randomly selects $a/2$ boxes to open
+* If the player does not see their slip, they randomly guess a color
+* What is the probability that *all* players correctly announce their color?
+
+## Activity
+
+Work with a neighbor to discuss how we could modify the code from Question 2 for this new scenario.
+
+## HW 2, Question 3
+
+```{r, echo=T, eval=F}
+set.seed(27)
+a <- 10
+slips <- 1:a
+ngames <- 1000
+game_results <- rep(NA, ngames)
+```
+
+```{r, echo=T, eval=F}
+for(i in 1:ngames){
+  boxes <- sample(slips, a, replace=F)
+  player_results <- rep(NA, a)
+  for(player in 1:a){
+    opened_boxes <- sample(1:a, a/2, replace = F)
+    player_results[player] <- player %in% boxes[opened_boxes]
+  }
+  game_results[i] <- sum(player_results) == a
+}
+
+mean(game_results)
+```
+
+**Question:** What needs to change?
+
+## Modifying the logic
+
+* Randomly assign a color to each slip
+* Store whether each player correctly identifies their color
+* If a player sees their slip, do they also see their color?
+
+## Modifying the logic
+
+* Randomly assign a color to each slip
+* Store whether each player correctly identifies their color
+* If a player sees their slip, do they also see their color? Yes!
+* If a player does not see their slip, what happens?
+
+## Modifying the logic
+
+
+```{r, echo=T, eval=F}
+boxes <- sample(slips, a, replace=F)
+slip_colors <- sample(c("red", "blue"), a, replace=T)
+player_results <- rep(NA, a)
+
+for(player in 1:a){
+  opened_boxes <- sample(1:a, a/2, replace = F)
+  if(player %in% boxes[opened_boxes]){
+    ...
+  } else {
+    ...
+  }
+}
+```
+
+**Question:** How do we fill in the `if...else...` here?
+
+
+## Modifying the logic
+
+```{r, echo=T, eval=F}
+boxes <- sample(slips, a, replace=F)
+slip_colors <- sample(c("red", "blue"), a, replace=T)
+player_results <- rep(NA, a)
+
+for(player in 1:a){
+  opened_boxes <- sample(1:a, a/2, replace = F)
+  if(player %in% boxes[opened_boxes]){
+    player_results[player] <- TRUE
+  } else {
+    random_guess <- sample(c("red", "blue"), 1)
+    player_results[player] <- random_guess == slip_colors[player]
+  }
+}
+```
+
+## Putting it all together
+
+```{r, echo=T, eval=F}
+set.seed(27)
+a <- 10
+slips <- 1:a
+ngames <- 1000
+game_results <- rep(NA, ngames)
+```
+
+```{r, echo=T, eval=F}
+for(i in 1:ngames){
+  boxes <- sample(slips, a, replace=F)
+  slip_colors <- sample(c("red", "blue"), a, replace=T)
+  player_results <- rep(NA, a)
+  
+  for(player in 1:a){
+    opened_boxes <- sample(1:a, a/2, replace = F)
+    if(player %in% boxes[opened_boxes]){
+      player_results[player] <- TRUE
+    } else {
+      random_guess <- sample(c("red", "blue"), 1)
+      player_results[player] <- random_guess == slip_colors[player]
+    }
+  }
+}
 ```
 
 
-## Lists (vs. vectors)
+
+
