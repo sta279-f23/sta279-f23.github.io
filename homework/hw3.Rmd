@@ -7,7 +7,7 @@ output:
 link-citations: yes
 ---
 
-**Due:** Friday, September 12, 12:00pm (noon) on Canvas
+**Due:** Friday, September 22, 12:00pm (noon) on Canvas
 
 **Instructions:** 
 
@@ -33,6 +33,78 @@ link-citations: yes
 * [Chapter 5](https://adv-r.hadley.nz/control-flow.html) (loops and choices) in *Advanced R*
 * [Appendix C.2](https://mdsr-book.github.io/mdsr3e/C-algorithmic.html#simple-example) in *Modern Data Science with R*
 * [Chapter 19.1 -- 19.5.2](https://r4ds.had.co.nz/functions.html) (functions and conditions) in *R for Data Science* (1st edition)
+
+### Logistic regression diagnostics
+
+As you learned in STA 112, *linear* regression is used with quantitative responses, whereas *logistic* regression is used for binary responses ($Y_i = 0$ or $1$). In particular, if $\pi_i = P(Y_i = 1)$, then a simple logistic regression model (with explanatory variable $X_i$) is
+$$\log \left( \frac{\pi_i}{1 - \pi_i} \right) = \beta_0 + \beta_1 X_i$$
+
+As an example, consider a dataset of 3402 pitches thrown by MLB pitcher Clayton Kershaw in the 2013 season. The data is contained in the `Kershaw` data set, in the `Stat2Data` R package. We will focus on two specific variables for each pitch: 
+
+* `Result`: a negative result (a ball or a hit), or a positive result (a strike or an out)
+* `EndSpeed`: the speed at which the ball crossed home plate (in mph)
+
+Our goal is to investigate the relationship between pitch speed and result. We can fit a logistic regression model, with `EndSpeed` as the explanatory variable and `Result` as the response:
+
+```{r, eval=F}
+library(tidyverse)
+library(Stat2Data)
+data("Kershaw")
+
+log_reg <- glm(Result ~ EndSpeed, family = binomial, data = Kershaw)
+summary(log_reg)
+```
+
+So far, so good! But, how do we assess the assumptions for this logistic regression model? The usual residual plots (like we would make for linear regression) are not helpful:
+
+```{r, include=F}
+library(tidyverse)
+library(Stat2Data)
+data("Kershaw")
+
+log_reg <- glm(Result ~ EndSpeed, family = binomial, data = Kershaw)
+summary(log_reg)
+```
+
+```{r}
+data.frame(fitted = log_reg$fitted.values,
+           residuals = log_reg$y - log_reg$fitted.values) |>
+  ggplot(aes(x = fitted, y = residuals)) +
+  geom_abline(slope = 0, intercept = 0, color = "blue") +
+  geom_point() +
+  labs(x = "Fitted values", y = "Residuals") +
+  theme_bw()
+```
+
+Instead of the raw residuals $Y_i - \widehat{\pi}_i$, it is common in logistic regression to use a type of residual called *randomized quantile residuals*. For logistic regression, a randomized quantile residual is defined as follows:
+
+$$r_{Q}(Y_i, \widehat{\pi}_i) = \Phi^{-1}(u) \hspace{1cm} u \sim \begin{cases}
+Uniform(1 - \widehat{\pi}_i, 1) & Y_i = 1 \\
+Uniform(0, 1 - \widehat{\pi}_i) & Y_i = 0,
+\end{cases}$$
+
+In other words:
+
+* If $Y_i = 1$, draw a random number $u$ from a $Uniform(1 - \widehat{\pi}_i, 1)$ distribution
+  * Else ($Y_i = 0$), draw a random number $u$ from a $Uniform(0, 1 - \widehat{\pi}_i)$ distribution
+* Then return $\Phi^{-1}(u)$, where $\Phi^{-1}$ is the quantile function for a standard normal distribution
+
+How do we do this? Some hints:
+
+* `log_reg$fitted.values` will return a vector of $\widehat{\pi}_i$'s for the observed data
+* `log_reg$y` will return a vector of $Y_i$'s for the observed data
+* `runif(...)` will sample from a uniform distribution
+* `ifelse` can be used to handle conditional statements
+* In R, $\Phi^{-1}(u)$ would be calculated with `qnorm(u)`
+
+
+:::{.question}
+#### Question 7
+
+Using these hints, write a function `quant_resid` that calculates randomized quantile residuals for a logistic regression model. Your function should take as input a logistic regression model (output of a call to `glm` in R), and return a vector of randomized quantile residuals (one residual for each observation in the data).
+
+You may use a `for` loop, or use vectorized functions in R. You may *not* use any existing quantile residual functions from R packages.
+:::
 
 ### Quantile residuals, continued
 
@@ -249,4 +321,32 @@ So far, so good! But how is the `glm` function calculating the estimates $\wideh
 $$\beta^{(1)} = \beta^{(0)} + \mathcal{I}^{-1}(\beta^{(0)}) \mathcal{U}(\beta^{(0)})$$
 * Continue 
 
+### Reproducibility
+
+When we do research, we want our work to be *reproducible*: other researchers should be able to reproduce our results, given the same data. Unfortunately, published research is not always reproducible. In this part of the assignment, you will read about why reproducibility is important, and some good practices for making your own work more reproducible.
+
+To begin, read the following articles at the links provided:
+
+* Peng, R. D. (2011). [Reproducible research in computational science](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3383002/). *Science*, 334(6060), 1226-1227.
+* Broman, K., Cetinkaya-Rundel, M., Nussbaum, A., Paciorek, C., Peng, R., Turek, D., & Wickham, H. (2017). [Recommendations to funding agencies for supporting reproducible research](https://www.amstat.org/docs/default-source/amstat-documents/pol-reproducibleresearchrecommendations.pdf). American Statistical Association.
+
+Then answer the following questions.
+
+:::{.question}
+#### Question 15
+
+Briefly summarize why reproducibility is important in computational research.
+:::
+
+:::{.question}
+#### Question 16
+
+What steps can a researcher take to make their work more reproducible?
+:::
+
+:::{.question}
+#### Question 17
+
+The articles here focus mostly on reproducibility in academic research, particularly published academic research. Suppose you are performing statistical analysis for a private company instead. Why might reproducibility (perhaps by another statistician in your company) still be important?
+:::
 

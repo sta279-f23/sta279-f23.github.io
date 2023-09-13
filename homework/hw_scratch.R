@@ -19,6 +19,8 @@ for(j in 1:1000){
     # }
   }
   
+  #taken
+  
   results[j] <- taken[100]
 }
 
