@@ -8,7 +8,7 @@ September 11
 
 September 13
 : Lists
-  : [slides (html)](https://sta279-f23.github.io/slides/lecture_7.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_7.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_7.html)
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_7.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_7.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_7.html), [Class Activity solutions](https://sta279-f23.github.io/class_activities/ca_lecture_7_solutions.html)
 
 September 15
 : Recap
