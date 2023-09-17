@@ -1,0 +1,55 @@
+---
+title: "Class Activity"
+output: 
+  tufte::tufte_html:
+    css: "lab.css"
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+
+**Instruction:** Work with a neighbor to answer the following questions. Solutions will be posted on the course website. To get started, download the [class activity template](https://sta279-f23.github.io/class_activities/ca_lecture_10_template.qmd) file.
+
+## Roulette revisited
+
+Previously, we consider the following gambling scenario:
+
+-   A roulette wheel has 38 slots numbered 00, 0, and 1--36. Two are green, 18 are red, and 18 are black.
+-   If a gambler bets based on color, the return on a \$1 bet is \$2
+-   A gambler has \$50, and will continuously bet \$1 on red until they double their money (have \$100) or lose the money they came with
+-   What is the probability the gambler doubles their money?
+
+Here is an R simulation to estimate the probability:
+
+```{r, echo = T}
+set.seed(279)
+
+nsim <- 1000
+results <- rep(0, nsim)
+wheel <- c(rep("green", 2), rep("black", 18), rep("red", 18))
+
+for(i in 1:nsim){
+  money <- 50 # starting money
+
+  while(money > 0 && money < 100){
+    spin <- sample(wheel, size = 1)
+    if(spin == "red"){
+      money <- money + 1
+    } else {
+      money <- money - 1
+    }
+  }
+  
+  results[i] <- money == 100
+}
+
+mean(results)
+```
+
+1. Re-write this simulation in Python. In addition to the material we have covered so far, you will need to look up a couple new Python tools, such as setting a seed, and `if...else...` statements.
+
+## ChatGPT
+
+A valuable tool for translating code from one language to another is ChatGPT. This can be helpful when you are learning a new language, because it can help you explore fundamental syntax and functions. *However*, be careful: if you don't know a language well, it can be hard to check whether ChatGPT's answer is reasonable!
+
+2. Ask [ChatGPT](https://chat.openai.com/) to translate the R code above into Python. How do the results compare to your translation in question 1?

@@ -9,13 +9,13 @@ editor_options:
 
 ### The birthday problem
 
-1. Creating a vector to store the days of the year (useful for sampling later):
+1.  Creating a vector to store the days of the year (useful for sampling later):
 
 ```{r}
 days <- 1:365
 ```
 
-2. Choosing birthdays:
+2.  Choosing birthdays:
 
 ```{r}
 set.seed(33)
@@ -23,7 +23,7 @@ n_students <- 30
 birthdays <- sample(days, n_students, replace=TRUE)
 ```
 
-3. Are there 30 unique birthdays, or do we have a repeated birthday?
+3.  Are there 30 unique birthdays, or do we have a repeated birthday?
 
 ```{r}
 length(unique(birthdays)) < n_students
@@ -31,7 +31,7 @@ length(unique(birthdays)) < n_students
 
 We have at least one repeated birthday!
 
-4. Now let's repeat the simulation many times:
+4.  Now let's repeat the simulation many times:
 
 ```{r}
 set.seed(33)
@@ -51,7 +51,7 @@ mean(results)
 
 The probability of at least one shared birthday is approximately 71%.
 
-5. How many students do we need for the probability to be approximately 50%? The answer is 23:
+5.  How many students do we need for the probability to be approximately 50%? The answer is 23:
 
 ```{r}
 set.seed(213)

@@ -181,4 +181,4 @@ mean(results)
 
 Work with a neighbor on the class activity (link below and on the course website):
 
-[https://sta279-f23.github.io/class_activities/ca_lecture_1.html](https://sta279-f23.github.io/class_activities/ca_lecture_1.html)
+<https://sta279-f23.github.io/class_activities/ca_lecture_1.html>

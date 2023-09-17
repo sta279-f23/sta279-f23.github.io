@@ -1,0 +1,240 @@
+---
+title: "Lecture 10: Arrays and lists"
+format: 
+  revealjs:
+    theme: theme.scss
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
+
+## Tips for learning a new language (e.g. Python)
+
+* Start with something (small) you know how to do in R
+* Figure out the translation to Python
+  * Gives you some concrete examples to further explore
+  * Some questions to ask:
+    * What kinds of objects are available?
+    * How is data stored?
+    * How does iteration work? etc.
+* Investigate similarities and differences 
+
+## Recap: vectors in R
+
+```{r, echo=T}
+x <- c(1, 2, 3)
+
+sqrt(x)
+
+x + 1
+x + c(2, 3, 4)
+```
+
+* Vectors only contain one type
+* Many functions are (or can be) vectorized
+* Math often works element-wise
+
+## NumPy arrays
+
+```{python, echo=T}
+import numpy as np
+
+x = np.array([1, 2, 3])
+
+np.sqrt(x)
+
+x + 1
+x + np.array([2, 3, 4])
+```
+
+1-dimensional arrays work like R vectors:
+
+* Only store one type
+* Many functions and math can be applied element-wise
+
+## Indexing vectors and arrays
+
+```{r, echo=T}
+x <- c(1, 2, 3)
+y <- c(2, 4, 8)
+x[1:3]
+```
+
+
+```{python, echo=T}
+x = np.array([1, 2, 3])
+y = np.array([2, 4, 8])
+x[0:2]
+```
+
+* Similarity: Square brackets `[ ]` used for both R and Python
+* Difference: R is 1-indexed, Python is 0-indexed
+* Similarity: Indexing can be used to select multiple entries
+
+## Indexing vectors and arrays
+
+```{r, echo=T}
+x <- sample(1:100, 10)
+x
+```
+
+**Question:** How would I select the entries in `x` which are `< 50`?
+
+## Indexing vectors and arrays
+
+```{r, echo=T, eval=F}
+x <- sample(1:100, 10)
+x
+```
+
+**Question:** How would I select the entries in `x` which are `< 50`?
+
+```{r, echo=T}
+x[x < 50]
+```
+
+## Indexing vectors and arrays
+
+```{r, echo=T, eval=F}
+x <- sample(1:100, 10)
+```
+
+**Question:** How would I write this code in Python?
+
+## Indexing vectors and arrays
+
+
+```{python, echo=T}
+x = np.random.choice(np.arange(1, 101), 10)
+x
+x[x < 50]
+```
+
+* Similarity: Using booleans to index works similarly in R and Python
+* Difference: `np.arange` includes the start, but *not* the end
+
+## Indexing vectors and arrays
+
+Indexing doesn't *always* behave the same:
+
+```{r, echo=T}
+x <- c(1, 2, 3)
+x[-1]
+```
+
+```{python, echo=T}
+x = np.array([1, 2, 3])
+x[-1]
+```
+
+## Recap: lists in R
+
+**Question:** How are *lists* different from *vectors* in R?
+
+## Recap: lists in R
+
+```{r, echo=T}
+x <- list(c("a", "b"), list(1, 2, c(4, 5)))
+```
+
+**Question:** How would I select just the vector `c(4, 5)`?
+
+## Recap: lists in R
+
+```{r, echo=T}
+x <- list(c("a", "b"), list(1, 2, c(4, 5)))
+```
+
+**Question:** How would I select just the vector `c(4, 5)`?
+```{r, echo=T}
+x[[2]][[3]]
+```
+
+## Lists in Python
+
+```{python, echo=T}
+x = np.array(["a", 0, 1])
+```
+
+* Like vectors in R, arrays can only store one type
+
+## Lists in Python
+
+In R:
+
+```{r, echo = T}
+x = list("a", 0, 1)
+x[[1]]
+```
+
+In Python:
+
+```{python, echo = T}
+x = ["a", 0, 1]
+x[0]
+```
+
+## Lists in Python
+
+In R:
+
+```{r, echo=T}
+x <- list(c("a", "b"), list(1, 2, c(4, 5)))
+x[[2]][[3]]
+```
+
+In Python:
+
+```{python, echo=T}
+x = [np.array(["a", "b"]), [1, 2, np.array([4, 5])]]
+x[1]
+x[1][2]
+```
+
+## Lists in Python
+
+What will happen if I run the following R code?
+
+```{r, echo = T, eval=F}
+x <- list(0, 1, 2)
+x + 1
+x * 2
+```
+
+## Lists in Python
+
+What will happen if I run the following R code?
+
+```{r, echo = T, error=T}
+x <- list(0, 1, 2)
+x + 1
+x * 2
+```
+
+## Lists in Python
+
+What if I run the code in Python?
+
+```{python, echo=T, eval=F}
+x = [0, 1, 2]
+x + [1]
+x * 2
+```
+
+## Lists in Python
+
+What if I run the code in Python?
+
+```{python, echo=T}
+x = [0, 1, 2]
+x + [1]
+x * 2
+```
+* R vectors, and NumPy arrays, are built for math and data
+* Python lists are a much more general tool
+
+## Class activity
+
+[https://sta279-f23.github.io/class_activities/ca_lecture_10.html](https://sta279-f23.github.io/class_activities/ca_lecture_10.html)
+
+

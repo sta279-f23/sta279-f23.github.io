@@ -5,32 +5,32 @@ editor: visual
 author: "Ciaran Evans"
 ---
 
-1. 
+1.  
 
 ```{r, echo=T}
 x <- rep(NA, 100)
 ```
 
-2. 
+2.  
 
 ```{r, echo=T}
 x <- rep(0, 3)
 ```
 
-3. 
+3.  
 
 ```{r, echo=T}
 x <- seq(0, 3, 0.01)
 ```
 
-4. 
+4.  
 
 ```{r, echo=T}
 x <- seq(0, 3, 0.01)
 x[23]
 ```
 
-5.
+5.  
 
 ```{r, echo=T}
 x <- seq(0, 3, 0.01)
@@ -40,32 +40,32 @@ for(i in 1:length(x)){
 }
 ```
 
-6. 
+6.  
 
 ```{r, echo=T}
 x <- seq(0, 3, 0.01)
 sqrt_x <- sqrt(x)
 ```
 
-7. 
+7.  
 
 ```{r, echo=T}
 x <- sample(1:100, 10, replace=FALSE)
 ```
 
-8.
+8.  
 
 ```{r, echo=T}
 x <- sample(-2:2, 10, replace=TRUE)
 ```
 
-9. 
+9.  
 
 ```{r, echo=T}
 x <- rnorm(1000, mean=3, sd=sqrt(11))
 ```
 
-10.
+10. 
 
 ```{r, echo=T}
 exp_model <- function(n, beta0, beta1){
@@ -75,7 +75,7 @@ exp_model <- function(n, beta0, beta1){
 }
 ```
 
-11.
+11. 
 
 ```{r, echo=T}
 exp_model <- function(n, beta0, beta1){
@@ -102,7 +102,3 @@ x <- list(function(n){return(rnorm(n, mean=0, sd=3))},
 
 x[[1]](10)
 ```
-
-
-
-
