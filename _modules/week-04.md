@@ -14,4 +14,4 @@ September 22
 : Lab day
 
 : **Homework 4 released**{: .label .label-yellow }
-  : [HW 4](https://sta279-f23.github.io/homework/hw4.html)
+  : [HW 4](https://sta279-f23.github.io/homework/hw_4.html)
