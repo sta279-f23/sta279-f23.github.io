@@ -8,6 +8,7 @@ September 25
 
 September 27
 : Data wrangling in R
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_12.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_12.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_12.html)
   
 September 29
 : Lab day
