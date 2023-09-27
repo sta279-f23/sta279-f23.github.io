@@ -65,5 +65,5 @@ gapminder |>
 
 7. Calculate the median life expectancy for each continent in 2007, and the correlation between log GDP per capita and life expectancy for each continent in 2007.
 
-8. Using your plots summary statistics, describe the relationship between GDP per capita and life expectancy, and summarize the differences between continents.
+8. Using your summary statistics, describe the relationship between GDP per capita and life expectancy, and summarize the differences between continents.
 
