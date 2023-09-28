@@ -8,9 +8,10 @@ September 25
 
 September 27
 : Data wrangling in R
-  : [slides (html)](https://sta279-f23.github.io/slides/lecture_12.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_12.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_12.html)
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_12.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_12.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_12.html), [Class Activity solutions](https://sta279-f23.github.io/class_activities/ca_lecture_12_solutions.html)
   
 September 29
 : Lab day
 
 : **Homework 5 released**{: .label .label-yellow }
+  : [HW 5](https://sta279-f23.github.io/homework/hw_5.html)
