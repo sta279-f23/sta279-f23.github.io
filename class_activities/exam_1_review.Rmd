@@ -1,0 +1,78 @@
+---
+title: "Exam 1 review"
+output: 
+  tufte::tufte_html:
+    css: "lab.css"
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+
+
+## Practice with iteration in R
+
+1. What will the following code return when you run it in R?
+
+```{r, eval=F}
+output <- rep(NA, 10)
+for(i in 1:5){
+  output[i] <- i
+}
+
+output[6]
+```
+
+2. What will the following code return when you run it in R?
+
+```{r, eval=F}
+output <- rep(0, 10)
+for(i in 1:10){
+  output[i] <- i
+}
+
+output[6]
+```
+
+3. What will the following code return when you run it in R?
+
+```{r, eval=F}
+output <- rep(0, 10)
+for(i in 1:10){
+  output[i] <- i
+}
+
+output[11]
+```
+
+4. What will the following code return when you run it in R?
+
+```{r, eval=F}
+output <- rep(1, 10)
+for(i in 2:10){
+  output[i] <- i + output[i-1]
+}
+
+output[5]
+```
+
+5. What will the following code return when you run it in R?
+
+```{r, eval=F}
+output <- rep(1, 10)
+for(i in 2:10){
+  output[i] <- i + output[i+1]
+}
+
+output[5]
+```
+
+
+## Practice with function scoping
+
+6. What will be the output of the following code?
+
+```{r}
+x <- 10
+test_fun <- function()
+```
+
