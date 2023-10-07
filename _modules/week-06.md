@@ -14,5 +14,6 @@ October 4
   
 October 6
 : Exam review day
+  : [Exam 1 review notes](https://sta279-f23.github.io/slides/exam_1_review), [Review questions solutions](https://sta279-f23.github.io/class_activities/exam_1_review_solutions.html)
 
 : **Homework 6 released**{: .label .label-yellow }
