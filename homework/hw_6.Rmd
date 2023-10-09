@@ -30,14 +30,14 @@ link-citations: yes
   
 **Resources:** In addition to the class notes and activities, I recommend reading the following resources:
 
-* [Chapter 4](https://mdsr-book.github.io/mdsr3e/04-dataI.html) in *Modern Data Science with R*
-* [Chapter 4](https://r4ds.hadley.nz/data-transform) in *R for Data Science* (2nd edition)
+* [Chapter 4](https://mdsr-book.github.io/mdsr3e/04-dataI.html) and [Chapter 6](https://mdsr-book.github.io/mdsr3e/06-dataII.html) in *Modern Data Science with R*
+* [Chapter 4](https://r4ds.hadley.nz/data-transform) and [Chapter 6](https://r4ds.hadley.nz/data-tidy) in *R for Data Science* (2nd edition)
 
 
 
 ## Baseball data
 
-The `Teams` data in the `Lahman` contains information on professional baseball teams since 1871. 
+The `Teams` data in the `Lahman` package contains information on professional baseball teams since 1871. 
 
 :::{.question}
 #### Question 1
