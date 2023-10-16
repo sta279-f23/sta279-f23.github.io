@@ -699,8 +699,25 @@ Pclass Sex
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>titanic.groupby(by <span class="op">=</span> [<span class="st">'Pclass'</span>, <span class="st">'Sex'</span>]).agg(</span>
-<span id="cb37-2"><a href="#cb37-2"></a>  survival_rate <span class="op">=</span> (<span class="st">'Survived'</span>, <span class="st">'mean'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>(titanic.groupby(by <span class="op">=</span> [<span class="st">'Pclass'</span>, <span class="st">'Sex'</span>])</span>
+<span id="cb37-2"><a href="#cb37-2"></a>        .agg(survival_rate <span class="op">=</span> (<span class="st">'Survived'</span>, <span class="st">'mean'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               survival_rate
+Pclass Sex                  
+1      female       0.968085
+       male         0.368852
+2      female       0.921053
+       male         0.157407
+3      female       0.500000
+       male         0.135447</code></pre>
+</div>
+</div>
+</section>
+<section id="note-splitting-longer-chains-across-multiple-lines" class="slide level2">
+<h2>Note: Splitting longer chains across multiple lines</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>(titanic.groupby(by <span class="op">=</span> [<span class="st">'Pclass'</span>, <span class="st">'Sex'</span>])</span>
+<span id="cb39-2"><a href="#cb39-2"></a>        .agg(survival_rate <span class="op">=</span> (<span class="st">'Survived'</span>, <span class="st">'mean'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               survival_rate
 Pclass Sex                  
@@ -717,8 +734,8 @@ Pclass Sex
 <section id="grouping-and-summarizing-1" class="slide level2">
 <h2>Grouping and summarizing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>titanic.groupby(by <span class="op">=</span> [<span class="st">'Pclass'</span>, <span class="st">'Sex'</span>]).agg(</span>
-<span id="cb39-2"><a href="#cb39-2"></a>  survival_rate <span class="op">=</span> (<span class="st">'Survived'</span>, <span class="st">'mean'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>(titanic.groupby(by <span class="op">=</span> [<span class="st">'Pclass'</span>, <span class="st">'Sex'</span>])</span>
+<span id="cb41-2"><a href="#cb41-2"></a>        .agg(survival_rate <span class="op">=</span> (<span class="st">'Survived'</span>, <span class="st">'mean'</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               survival_rate
 Pclass Sex                  
@@ -732,9 +749,9 @@ Pclass Sex
 </div>
 <p>What would the equivalent R code be?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>titanic <span class="sc">|&gt;</span> </span>
-<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">group_by</span>(Pclass, Sex) <span class="sc">|&gt;</span> </span>
-<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">summarize</span>(<span class="at">survival_rate =</span> <span class="fu">mean</span>(Survived))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>titanic <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">group_by</span>(Pclass, Sex) <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">summarize</span>(<span class="at">survival_rate =</span> <span class="fu">mean</span>(Survived))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="class-activity" class="slide level2">
