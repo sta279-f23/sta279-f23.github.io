@@ -1,0 +1,272 @@
+---
+title: "Lecture 16: Reshaping data in pandas"
+format: 
+  revealjs:
+    theme: theme.scss
+editor: source
+execute: 
+  echo: true
+editor_options: 
+  chunk_output_type: console
+---
+
+## Reshaping data
+
+Recall the literacy rate data:
+
+```{r, echo=F}
+library(googlesheets4)
+library(tidyverse)
+gs4_deauth()
+litF <- read_sheet("https://docs.google.com/spreadsheets/d/1hDinTIRHQIaZg1RUn6Z_6mo12PtKwEPFIz_mJVF6P5I/pub?gid=0")
+litF
+```
+
+How did we want to restructure this data?
+
+## Reshaping data in R
+
+![](https://r4ds.hadley.nz/diagrams/tidy-data/variables.png)
+
+What did our R code look like to reshape this data?
+
+## Reshaping data in R
+
+![](https://r4ds.hadley.nz/diagrams/tidy-data/variables.png)
+
+```{r, eval=F}
+df |> 
+  pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to = "value"
+  )
+```
+
+(Image from *R for Data Science*)
+
+## Lengthing data in Python
+
+```{python}
+import pandas as pd
+
+df1 = pd.DataFrame({
+  'id' : ['A', 'B', 'C'],
+  'bp1' : [100, 140, 120],
+  'bp2' : [120, 115, 125]
+})
+
+df1
+```
+
+```{python}
+df1.melt(id_vars = 'id', var_name = 'measurement', value_name = 'value')
+```
+
+
+## Reshaping data in R
+
+```{r}
+litF |>
+  rename(country = starts_with("Adult")) |>
+  pivot_longer(
+    cols = -country,
+    names_to = "year",
+    values_to = "literacy_rate"
+  ) |>
+  drop_na(literacy_rate)
+```
+
+What would the corresponding Python code look like?
+
+## Reshaping data in Python
+
+```{python}
+litF = r.litF
+
+# first, need to rename the first column
+litF.rename(columns={litF.columns[0]: 'Country'})
+```
+
+## Reshaping data in Python
+
+```{python}
+litF = r.litF
+
+# rename the first column
+# then melt to make the data longer
+(litF.rename(columns={litF.columns[0]: 'Country'})
+     .melt(id_vars = 'Country',
+           var_name = 'year',
+           value_name = 'count'))
+```
+
+## Reshaping data in Python
+
+```{python}
+litF = r.litF
+
+# rename the first column
+# then melt to make the data longer
+(litF.rename(columns={litF.columns[0]: 'Country'})
+     .melt(id_vars = 'Country',
+           var_name = 'year',
+           value_name = 'count')
+     .dropna())
+```
+
+What if I want to arrange the rows alphabetically by country?
+
+## Reshaping data in Python
+
+```{python}
+litF = r.litF
+
+# rename the first column
+# then melt to make the data longer
+(litF.rename(columns={litF.columns[0]: 'Country'})
+     .melt(id_vars = 'Country',
+           var_name = 'year',
+           value_name = 'count')
+     .dropna()
+     .sort_values(by = ['Country', 'year']))
+```
+
+## `pivot_longer` in R
+
+Consider the following example data:
+
+```{r, echo=F}
+df2 = data.frame(id = c(1, 2, 3),
+                 bp_1 = c(100, 120, 125),
+                 bp_2 = c(120, 115, 130),
+                 hr_1 = c(60, 75, 80),
+                 hr_2 = c(77, 81, 93))
+df2
+```
+
+What if we want the data to look like this:
+
+```{r, echo=F}
+df2 |>
+  pivot_longer(cols = -id, 
+               names_to = c("measurement", "stage"), 
+               names_sep = "_", 
+               values_to = "value")
+```
+
+## `pivot_longer` in R
+
+```{r}
+df2
+
+df2 |>
+  pivot_longer(cols = -id, 
+               names_to = c("measurement", "stage"), 
+               names_sep = "_", 
+               values_to = "value")
+```
+
+## `pivot_longer` in R
+
+```{r, eval=F}
+df2 |>
+  pivot_longer(cols = -id, 
+               names_to = c("measurement", "stage"), 
+               names_sep = "_", 
+               values_to = "value")
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Step 1:** Pivot 
+
+```{r, echo=F}
+df2 |>
+  pivot_longer(cols = -id, 
+               names_to = "measurement", 
+               values_to = "value") |>
+  head()
+```
+:::
+
+::: {.column width="50%"}
+**Step 2:** Separate columns
+
+```{r, echo=F}
+df2 |>
+  pivot_longer(cols = -id, 
+               names_to = c("measurement", "stage"), 
+               names_sep = "_", 
+               values_to = "value") |>
+  head()
+```
+:::
+
+::::
+
+
+## In Python
+
+**Step 1:** Melt
+
+```{python}
+df2 = r.df2
+
+df2_new = df2.melt(id_vars = 'id', var_name = 'measurement', value_name = 'value')
+df2_new
+```
+
+## In Python
+
+**Step 2:** Separate columns
+
+```{python}
+df2 = r.df2
+
+df2_new = df2.melt(id_vars = 'id', var_name = 'measurement', value_name = 'value')
+df2_new['measurement'].str.split('_', expand=True)
+```
+
+## In Python
+
+**Step 2:** Separate columns
+
+```{python}
+df2 = r.df2
+
+df2_new = df2.melt(id_vars = 'id', var_name = 'measurement', value_name = 'value')
+df2_new[['measurement', 'stage']] = df2_new['measurement'].str.split('_', expand=True)
+df2_new
+```
+
+## Pivot wider
+
+```{python, echo=F}
+air_quality = pd.read_csv("https://raw.githubusercontent.com/pandas-dev/pandas/main/doc/data/air_quality_long.csv")
+
+air_quality = air_quality.query('parameter == "no2"').filter(['date.utc', 'location', 'value'])
+```
+
+```{python, eval=F}
+air_quality
+```
+
+```{python, echo=F}
+air_quality.head()
+```
+
+What if I want a separate column for each location?
+
+## Pivot wider
+
+```{python}
+air_quality.pivot(index = 'date.utc', columns = 'location', values = 'value')
+```
+
+
+## Class activity
+
+[https://sta279-f23.github.io/class_activities/ca_lecture_16.html](https://sta279-f23.github.io/class_activities/ca_lecture_16.html)
+

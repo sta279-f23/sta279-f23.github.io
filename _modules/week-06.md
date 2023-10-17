@@ -10,7 +10,7 @@ October 2
 
 October 4
 : Reshaping data
-  : [slides (html)](https://sta279-f23.github.io/slides/lecture_14.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_14.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_14.html)
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_14.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_14.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_14.html), [Class Activity solutions](https://sta279-f23.github.io/class_activities/ca_lecture_14_solutions.html)
   
 October 6
 : Exam review day

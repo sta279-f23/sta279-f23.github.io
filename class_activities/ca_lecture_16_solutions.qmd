@@ -1,0 +1,56 @@
+---
+title: "Class activity solutions"
+format: html
+editor: source
+author: "Ciaran Evans"
+---
+
+1.  
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(googlesheets4)
+gs4_deauth()
+gdp_data <- read_sheet("https://docs.google.com/spreadsheets/d/1RctTQmKB0hzbm1E8rGcufYdMshRdhmYdeL29nXqmvsc/pub?gid=0")
+```
+
+```{python}
+import pandas as pd
+
+gdp_data = r.gdp_data
+
+(gdp_data.rename(columns={gdp_data.columns[0]: 'Country'})
+         .melt(id_vars = 'Country',
+               value_name = 'gdp',
+               var_name = 'year')
+         .dropna())
+```
+
+2.  
+
+```{python}
+who2 = r.who2
+
+new_who = who2.melt(id_vars = ['country', 'year'], value_name = 'count', var_name = 'group')
+new_who[['diagnosis', 'sex', 'age_group']] = new_who['group'].str.split('_', expand=True)
+new_who.drop('group', axis = 'columns').dropna()
+```
+
+3.  
+
+```{python}
+household = pd.DataFrame({
+  'family': [1, 2, 3, 4, 5],
+  'dob_child1': ["1998-11-26", "1996-06-22", "2002-07-11", "2004-10-10", "2000-12-05"],
+  'dob_child2': ["2000-01-29", pd.NA, "2004-04-05", "2009-08-27", "2005-02-28"],
+  'name_child1': ["Susan", "Mark", "Sam", "Craig", "Parker"],
+  'name_child2': ["Jose", pd.NA, "Seth", "Khai", "Gracie"]
+})
+
+new_household = household.melt(id_vars = 'family')
+new_household[['var', 'child']] = new_household['variable'].str.split('_', expand=True)
+(new_household.drop('variable', axis='columns')
+              .pivot(index = ['family', 'child'], 
+                     columns = 'var', values = 'value')
+              .dropna().reset_index())
+```

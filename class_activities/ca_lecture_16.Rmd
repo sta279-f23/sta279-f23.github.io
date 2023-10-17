@@ -1,0 +1,105 @@
+---
+title: "Class Activity"
+output: 
+  tufte::tufte_html:
+    css: "lab.css"
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+
+**Instructions:** Work with a neighbor to answer the following questions. To get started, download the [class activity template](https://sta279-f23.github.io/class_activities/ca_lecture_16_template.qmd) file.
+
+
+# GDP data
+
+Run the following R code to import data on GDP for each country (you may need to install the `googlesheets4` package):
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(googlesheets4)
+gs4_deauth()
+gdp_data <- read_sheet("https://docs.google.com/spreadsheets/d/1RctTQmKB0hzbm1E8rGcufYdMshRdhmYdeL29nXqmvsc/pub?gid=0")
+```
+
+Then import the data into Python:
+
+```{python}
+import pandas as pd
+
+gdp_data = r.gdp_data
+```
+
+1. Use the `melt` function in pandas to reshape the GDP data so it looks like this:
+
+```{python, echo=F}
+(gdp_data.rename(columns={gdp_data.columns[0]: 'Country'})
+         .melt(id_vars = 'Country',
+               value_name = 'gdp',
+               var_name = 'year')
+         .dropna())
+```
+
+* There should be no NAs
+* The first column should be renamed `country`
+* There should be separate columns for `year` and `gdp`
+
+# WHO data
+
+The `tidyr` package contains a dataset called `who2` which contains information on tuberculosis counts for each country in each year, broken down by method of diagnosis, sex, and age group:
+
+```{r}
+who2
+```
+
+Columns like `sp_m_1524` contain the number of tuberculosis cases. The column names contain information about the method of diagnosis (`rel`, `sn`, `sp`, or `ep`), sex (`f` or `m`), and age group (`014` = 0-14 years, `1524` = 15-24 years, etc.).
+
+Ideally, we would like these variables to each have their own column. 
+
+Import the `who2` data into Python:
+
+```{python}
+who2 = r.who2
+```
+
+2. Reshape the `who2` data in Python so it looks like this:
+
+```{python, echo=F}
+new_who = who2.melt(id_vars = ['country', 'year'], value_name = 'count', var_name = 'group')
+new_who[['diagnosis', 'sex', 'age_group']] = new_who['group'].str.split('_', expand=True)
+new_who.drop('group', axis = 'columns').dropna()
+```
+
+* There should be no NAs
+* There should be separate columns for `diagnosis`, `sex`, and `age_group`
+* The `count` column contains the number of cases
+
+# household data
+
+The `household` data below contains information about five different households and the children in each household:
+
+```{python}
+household = pd.DataFrame({
+  'family': [1, 2, 3, 4, 5],
+  'dob_child1': ["1998-11-26", "1996-06-22", "2002-07-11", "2004-10-10", "2000-12-05"],
+  'dob_child2': ["2000-01-29", pd.NA, "2004-04-05", "2009-08-27", "2005-02-28"],
+  'name_child1': ["Susan", "Mark", "Sam", "Craig", "Parker"],
+  'name_child2': ["Jose", pd.NA, "Seth", "Khai", "Gracie"]
+})
+```
+
+3. Reshape the `household` data in Python so it looks like this:
+
+```{python, echo=F}
+new_household = household.melt(id_vars = 'family')
+new_household[['var', 'child']] = new_household['variable'].str.split('_', expand=True)
+(new_household.drop('variable', axis='columns')
+              .pivot(index = ['family', 'child'], 
+                     columns = 'var', values = 'value')
+              .dropna())
+```
+
+
+
+
+

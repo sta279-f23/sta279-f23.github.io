@@ -21,7 +21,7 @@ gdp_data |>
                values_drop_na = T)
 ```
 
-2.
+2.  
 
 ```{r}
 who2 |>
@@ -32,8 +32,7 @@ who2 |>
                values_drop_na = T)
 ```
 
-
-3.
+3.  
 
 ```{r}
 household |>
@@ -42,6 +41,3 @@ household |>
                names_sep = "_",
                values_drop_na = T)
 ```
-
-
-
