@@ -214,7 +214,9 @@ df2 |>
 ```{python}
 df2 = r.df2
 
-df2_new = df2.melt(id_vars = 'id', var_name = 'measurement', value_name = 'value')
+df2_new = df2.melt(id_vars = 'id', 
+                   var_name = 'measurement', 
+                   value_name = 'value')
 df2_new
 ```
 
@@ -225,7 +227,9 @@ df2_new
 ```{python}
 df2 = r.df2
 
-df2_new = df2.melt(id_vars = 'id', var_name = 'measurement', value_name = 'value')
+df2_new = df2.melt(id_vars = 'id', 
+                   var_name = 'measurement', 
+                   value_name = 'value')
 df2_new['measurement'].str.split('_', expand=True)
 ```
 
@@ -236,8 +240,11 @@ df2_new['measurement'].str.split('_', expand=True)
 ```{python}
 df2 = r.df2
 
-df2_new = df2.melt(id_vars = 'id', var_name = 'measurement', value_name = 'value')
-df2_new[['measurement', 'stage']] = df2_new['measurement'].str.split('_', expand=True)
+df2_new = df2.melt(id_vars = 'id', 
+                   var_name = 'measurement', 
+                   value_name = 'value')
+df2_new[['measurement', 'stage']] = (df2_new['measurement']
+                                     .str.split('_', expand=True))
 df2_new
 ```
 
@@ -246,7 +253,8 @@ df2_new
 ```{python, echo=F}
 air_quality = pd.read_csv("https://raw.githubusercontent.com/pandas-dev/pandas/main/doc/data/air_quality_long.csv")
 
-air_quality = air_quality.query('parameter == "no2"').filter(['date.utc', 'location', 'value'])
+air_quality = (air_quality.query('parameter == "no2"')
+                          .filter(['date.utc', 'location', 'value']))
 ```
 
 ```{python, eval=F}
@@ -262,7 +270,9 @@ What if I want a separate column for each location?
 ## Pivot wider
 
 ```{python}
-air_quality.pivot(index = 'date.utc', columns = 'location', values = 'value')
+air_quality.pivot(index = 'date.utc', 
+                  columns = 'location', 
+                  values = 'value')
 ```
 
 
