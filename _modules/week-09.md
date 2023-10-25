@@ -8,7 +8,7 @@ October 23
   
 October 25
 : Relational data and SQL
-  : [slides (html)](https://sta279-f23.github.io/slides/lecture_18.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_18.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_18.html)
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_18.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_18.pdf), [Warm-up](https://sta279-f23.github.io/class_activities/ca_lecture_18_warmup.html), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_18.html)
   
 October 27
 : Lab day
