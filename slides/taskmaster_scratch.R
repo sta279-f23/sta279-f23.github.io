@@ -2,7 +2,7 @@ library(rvest)
 library(tidyverse)
 library(data.table)
 
-tm <- read_html("https://taskmaster.fandom.com/wiki/Series_15")
+tm <- read_html("https://taskmaster.fandom.com/wiki/Series_11")
 
 tm
 
@@ -36,7 +36,7 @@ results <- tm |>
   pivot_longer(cols = -c(Task, Description, episode),
                names_to = "contestant",
                values_to = "score") |>
-  mutate(series = 15)
+  mutate(series = 11)
 
 
 

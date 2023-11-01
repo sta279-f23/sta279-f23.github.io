@@ -1,0 +1,66 @@
+---
+title: "Class activity solutions"
+format: html
+editor: source
+author: "Ciaran Evans"
+---
+
+```{r, message=F}
+library(rvest)
+library(tidyverse)
+```
+
+1.
+
+```{r}
+read_html("https://taskmaster.fandom.com/wiki/Series_15") |>
+  html_element("[data-source^='champion'] > .pi-font") |>
+  html_text2()
+```
+
+2.
+
+```{r}
+urls <- paste0("https://taskmaster.fandom.com/wiki/Series_", 1:15)
+champions <- rep(NA, 15)
+for(i in 1:15){
+  champions[i] <- read_html(urls[i]) |>
+  html_element("[data-source^='champion'] > .pi-font") |>
+  html_text2()
+}
+champions
+```
+
+3. One option:
+
+```{r}
+read_html("https://thehornesection.com/shows/") |>
+  html_element("td.gigpress-date") |>
+  html_text2()
+```
+
+Another option:
+
+```{r}
+read_html("https://thehornesection.com/shows/") |>
+  html_element("table") |>
+  html_table()
+```
+
+4.
+
+```{r}
+read_html("https://taskmaster.fandom.com/wiki/Alex_Horne") |>
+  html_element("[data-source^='twitter']") |>
+  html_element("a") |>
+  html_attr("href")
+```
+
+
+
+
+
+
+
+
+
