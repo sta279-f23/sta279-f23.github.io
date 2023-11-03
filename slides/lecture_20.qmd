@@ -65,7 +65,7 @@ What we ultimately want:
  4 1     Prize: Best th… 1       "It's not y… 18 Marc… Mike Wozn… 5         11
  5 1     Prize: Best th… 1       "It's not y… 18 Marc… Sarah Ken… 3         11
  6 2     Do the most im… 1       "It's not y… 18 Marc… Charlotte… 2         11
- 7 2     Do the most im… 1       "It's not y… 18 Marc… Jamali Ma… 3[1]      11
+ 7 2     Do the most im… 1       "It's not y… 18 Marc… Jamali Ma… 3         11
  8 2     Do the most im… 1       "It's not y… 18 Marc… Lee Mack   3         11
  9 2     Do the most im… 1       "It's not y… 18 Marc… Mike Wozn… 5         11
 10 2     Do the most im… 1       "It's not y… 18 Marc… Sarah Ken… 4         11
