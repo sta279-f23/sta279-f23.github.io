@@ -60,7 +60,7 @@ read_html("https://en.wikipedia.org/wiki/The_Great_British_Bake_Off_(series_2)")
 Create a data frame which contains the episode information in the following format:
 
 ```{r, echo=F}
-episodes <- read_html("https://en.wikipedia.org/wiki/The_Great_British_Bake_Off_(series_3)") |>
+episodes <- read_html("https://en.wikipedia.org/wiki/The_Great_British_Bake_Off_(series_2)") |>
   html_elements(".mw-headline[id^='Episode_']") |>
   html_text2() 
 
@@ -213,14 +213,14 @@ Repeat question 8 for series 5. What do you notice about the name of the "Baker"
 Footnotes like this can cause a problem when we want to combine information across the series. Let's sanitize the names of the tables to make sure the information can be combined. 
 
 :::{.question}
-#### Question 10
+#### Question 11
 
 Use the `rename` and `starts_with` functions to rename the `Baker[3]` column `baker` in Series 5.
 
 :::
 
 :::{.question}
-#### Question 11
+#### Question 12
 
 Iterate over series 2 -- 13, extracting the contestant table for each series, and combine the results into a single data frame (you can remove the `Links` column). The results should look like this:
 
@@ -244,17 +244,17 @@ contestants
 
 :::
 
-Using your data from question 11, answer the following questions about the contestants over the course of the show.
+Using your data from question 12, answer the following questions about the contestants over the course of the show.
 
 :::{.question}
-#### Question 12
+#### Question 13
 
 How many contestants participated in each series?
 
 :::
 
 :::{.question}
-#### Question 13
+#### Question 14
 
 Have the contestant ages changed over the show? Calculate relevant summary statistics and create a plot to address the question.
 

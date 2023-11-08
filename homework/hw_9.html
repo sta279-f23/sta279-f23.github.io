@@ -1737,19 +1737,17 @@ this:</p>
 <h4>Question 2</h4>
 <p>Create a data frame which contains the episode information in the
 following format:</p>
-<pre><code>## # A tibble: 10 × 2
-##    episode episode_name 
-##    &lt;chr&gt;   &lt;chr&gt;        
-##  1 1       &quot;Cakes&quot;      
-##  2 2       &quot;Bread&quot;      
-##  3 3       &quot;Tarts&quot;      
-##  4 4       &quot;Desserts&quot;   
-##  5 5       &quot;Pies&quot;       
-##  6 6       &quot;Puddings&quot;   
-##  7 7       &quot;Sweet Dough&quot;
-##  8 8       &quot;Biscuits&quot;   
-##  9 9       &quot;Pâtisserie &quot;
-## 10 10      &quot;Final&quot;</code></pre>
+<pre><code>## # A tibble: 8 × 2
+##   episode episode_name 
+##   &lt;chr&gt;   &lt;chr&gt;        
+## 1 1       &quot;Cakes&quot;      
+## 2 2       &quot;Tarts&quot;      
+## 3 3       &quot;Bread&quot;      
+## 4 4       &quot;Biscuits&quot;   
+## 5 5       &quot;Pies&quot;       
+## 6 6       &quot;Desserts &quot;  
+## 7 7       &quot;Pâtisserie &quot;
+## 8 8       &quot;Final&quot;</code></pre>
 <p>Follow the example of using <code>separate_wider_regex</code> from
 the slides.</p>
 <p>Hint: the <code>too_few = &quot;align_start&quot;</code> option in
@@ -1864,14 +1862,14 @@ the “Baker” column?</p>
 <p>Footnotes like this can cause a problem when we want to combine
 information across the series. Let’s sanitize the names of the tables to
 make sure the information can be combined.</p>
-<div id="question-10-1" class="section level4 question">
-<h4>Question 10</h4>
+<div id="question-11" class="section level4 question">
+<h4>Question 11</h4>
 <p>Use the <code>rename</code> and <code>starts_with</code> functions to
 rename the <code>Baker[3]</code> column <code>baker</code> in Series
 5.</p>
 </div>
-<div id="question-11" class="section level4 question">
-<h4>Question 11</h4>
+<div id="question-12" class="section level4 question">
+<h4>Question 12</h4>
 <p>Iterate over series 2 – 13, extracting the contestant table for each
 series, and combine the results into a single data frame (you can remove
 the <code>Links</code> column). The results should look like this:</p>
@@ -1900,14 +1898,14 @@ the <code>Links</code> column). The results should look like this:</p>
 ## 145:                  London     13
 ## 146:                  London     13</code></pre>
 </div>
-<p>Using your data from question 11, answer the following questions
+<p>Using your data from question 12, answer the following questions
 about the contestants over the course of the show.</p>
-<div id="question-12" class="section level4 question">
-<h4>Question 12</h4>
-<p>How many contestants participated in each series?</p>
-</div>
 <div id="question-13" class="section level4 question">
 <h4>Question 13</h4>
+<p>How many contestants participated in each series?</p>
+</div>
+<div id="question-14" class="section level4 question">
+<h4>Question 14</h4>
 <p>Have the contestant ages changed over the show? Calculate relevant
 summary statistics and create a plot to address the question.</p>
 </div>
