@@ -14,3 +14,4 @@ November 10
   : [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_23.html)
 
 : **Project released**{: .label .label-yellow }
+  : [Project](https://sta279-f23.github.io/homework/project_1.html)
