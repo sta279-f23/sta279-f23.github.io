@@ -11,5 +11,6 @@ November 8
   
 November 10
 : Working with text data
+  : [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_23.html)
 
-: **Homework 10 released**{: .label .label-yellow }
+: **Project released**{: .label .label-yellow }
