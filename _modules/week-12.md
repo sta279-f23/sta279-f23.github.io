@@ -12,3 +12,4 @@ November 15
   
 November 17
 : C++ and Rcpp
+  : [slides (html)](https://sta279-f23.github.io/slides/lecture_26.html), [slides (pdf)](https://sta279-f23.github.io/slides/lecture_26.pdf), [Class Activity](https://sta279-f23.github.io/class_activities/ca_lecture_26.html)
