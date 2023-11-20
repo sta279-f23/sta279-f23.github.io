@@ -1941,8 +1941,9 @@ matrix with entries <span class="math inline">\(\mu_i^{(r)}\)</span>.</p>
 closed-form solution for <span class="math inline">\(\widehat{\beta}\)</span>).</p>
 <div id="for-logistic-regression-1" class="section level3">
 <h3>For logistic regression</h3>
-<p>Let <span class="math inline">\(\bar{Y} = \sum \limits_{i=1}^n
-Y_i\)</span>. One way to initialize logistic regression is to make</p>
+<p>Let <span class="math inline">\(\bar{Y} = \frac{1}{n} \sum
+\limits_{i=1}^n Y_i\)</span>. One way to initialize logistic regression
+is to make</p>
 <p><span class="math display">\[\beta^{(0)} = \left( \log \left(
 \frac{\bar{Y}}{1 - \bar{Y}} \right), 0, 0, ..., 0 \right)^T\]</span>
 That is, the initial value of the intercept is <span class="math inline">\(\log \left( \frac{\bar{Y}}{1 - \bar{Y}}
@@ -1951,8 +1952,9 @@ That is, the initial value of the intercept is <span class="math inline">\(\log 
 </div>
 <div id="for-poisson-regression-1" class="section level3">
 <h3>For Poisson regression</h3>
-<p>Let <span class="math inline">\(\bar{Y} = \sum \limits_{i=1}^n
-Y_i\)</span>. One way to initialize Poisson regression is to make</p>
+<p>Let <span class="math inline">\(\bar{Y} = \frac{1}{n} \sum
+\limits_{i=1}^n Y_i\)</span>. One way to initialize Poisson regression
+is to make</p>
 <p><span class="math display">\[\beta^{(0)} = \left( \log (\bar{Y}), 0,
 0, ..., 0 \right)^T\]</span> That is, the initial value of the intercept
 is <span class="math inline">\(\log (\bar{Y})\)</span>, and the initial
