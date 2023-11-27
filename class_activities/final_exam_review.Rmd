@@ -1,0 +1,557 @@
+---
+title: "Final exam review"
+output: 
+  tufte::tufte_html:
+    css: "lab.css"
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=F)
+knitr::opts_chunk$set(warning=F)
+```
+
+Below are questions to help you study for the final exam. These are examples of the kinds of questions I might ask.
+
+* This is not a practice exam. 
+* The questions cover most, but not all, possible material for the exam.
+
+
+# Writing code
+
+
+## Practice with data wrangling
+
+In each of the questions below, write code (in R or Python) to produce the output from the original data.
+
+1. Original data:
+
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+library(palmerpenguins)
+
+sub_data <- penguins |>
+  slice_sample(n=10) |>
+  select(species, island, bill_length_mm, bill_depth_mm)
+
+sub_data
+```
+
+Output:
+
+```{r, echo=F}
+sub_data |>
+  count(species, island)
+```
+
+2. Original data:
+
+```{r, echo=F}
+sub_data
+```
+
+Output:
+
+```{r, echo=F}
+sub_data |>
+  group_by(island, species) |>
+  summarize(mean_length = mean(bill_length_mm, na.rm=T))
+```
+
+
+3. Original data:
+
+```{r, echo=F}
+sub_data
+```
+
+Output:
+
+```{r, echo=F}
+sub_data |>
+  mutate(bill_ratio = bill_length_mm/bill_depth_mm)
+```
+
+
+4. Original data:
+
+```{r, echo=F}
+sub_data
+```
+
+Output:
+
+```{r, echo=F}
+sub_data |>
+  filter(species == "Adelie", 
+         island == "Dream")
+```
+
+5. Do this question without explicitly listing the columns.
+
+Original data:
+
+```{r, echo=F}
+ex_df <- data.frame(
+  x1 = c(1, 2, 3),
+  x2 = c("a", "b", "c"),
+  x3 = c(3, 1, 4),
+  y1 = c("d", "e", "f"),
+  y2 = c(2, 7, 9),
+  y3 = c(7, 1, 2)
+)
+
+ex_df
+```
+
+Output:
+
+```{r, echo=F}
+ex_df |>
+  select(where(is.numeric))
+```
+
+
+
+6. Do this question without explicitly listing the columns.
+
+Original data:
+
+```{r, echo=F}
+ex_df
+```
+
+Output:
+
+```{r, echo=F}
+ex_df |>
+  select(starts_with("x"))
+```
+
+
+7. Do this question without explicitly listing the columns.
+
+Original data:
+
+```{r, echo=F}
+ex_df
+```
+
+Output:
+
+```{r, echo=F}
+ex_df |>
+  summarize(across(starts_with("x") & where(is.numeric), mean, .names = "mean_{.col}"))
+```
+8. Original data:
+
+```{r, echo=F}
+ex_df <- data.frame(
+  id = c(1, 2, 3),
+  x_1 = c(3, 1, 4),
+  x_2 = c(5, 8, 9),
+  y_1 = c(0, 1, 2),
+  y_2 = c(2, 7, 9)
+)
+
+ex_df
+```
+
+Output:
+
+```{r, echo=F}
+ex_df |>
+  pivot_longer(cols = -id, names_to = c("group", "obs"), names_sep = "_")
+```
+
+9. Original data:
+
+```{r, echo=F}
+ex_df <- data.frame(
+  id = c(1, 1, 2, 2, 3, 3),
+  group = c("x", "y", "x", "y", "x", "y"),
+  value = sample(1:6, replace=T)
+)
+
+ex_df
+```
+
+Output:
+
+```{r, echo=F}
+ex_df |>
+  pivot_wider(id_cols = id, names_from = group, values_from = value)
+```
+
+
+## Joins
+
+In each of the following questions, write code to produce the desired output from the two input datasets. The code may involve additional wrangling steps, beyond a join.
+
+10.
+
+```{r, echo=F}
+df1 <- data.frame(
+  id = c(1, 2, 3),
+  x = c(7, 9, 13)
+)
+
+df2 <- data.frame(
+  id = c(1, 2, 4),
+  y = c(10, 12, 14)
+)
+```
+
+```{r}
+df1
+
+df2
+```
+
+
+Output:
+
+```{r, echo=F}
+df1 |>
+  left_join(df2, join_by(id))
+```
+
+
+11.
+
+```{r}
+df1
+
+df2
+```
+
+
+Output:
+
+```{r, echo=F}
+df1 |>
+  inner_join(df2, join_by(id))
+```
+
+12.
+
+```{r, echo=F}
+df1 = data.frame(
+  a_x = 1,
+  a_y = 2,
+  b_x = 2,
+  b_y = 3
+)
+
+df2 = data.frame(
+  id = c("a", "b"),
+  z = c(4, 5)
+)
+```
+
+```{r}
+df1
+
+df2
+```
+
+
+```{r, echo=F}
+df1 |> 
+  pivot_longer(cols = -c(), names_to = c("id", ".value"), names_sep = "_") |>
+  left_join(df2, join_by(id))
+```
+
+
+## Regular expressions
+
+Consider the following strings:
+
+```{r, echo=F}
+strings <- c(
+  "George Washington: February 22, 1732",
+  "Thomas Jefferson: April 13, 1743",
+  "Abraham Lincoln: February 12, 1809",
+  "Theodore Roosevelt: October 27, 1858"
+)
+
+strings
+```
+
+For each question below, fill in the R code to produce the desired output.
+
+13.
+
+```{r, eval=F}
+str_extract(strings, ...)
+```
+
+```{r, echo=F}
+str_extract(strings, ".+(?=:)")
+```
+
+14.
+
+
+```{r, eval=F}
+str_extract(strings, ...)
+```
+
+```{r, echo=F}
+str_extract(strings, "(?<=: ).+")
+```
+
+15.
+
+```{r, eval=F}
+str_extract(strings, ...)
+```
+
+```{r, echo=F}
+str_extract(strings, "(?<=\\s).+(?=:)")
+```
+
+16.
+
+```{r, eval=F}
+str_extract(strings, ...)
+```
+
+```{r, echo=F}
+str_extract(strings, "(?<=, ).+")
+```
+
+## More regular expressions
+
+Consider the following strings:
+
+```{r, echo=F}
+strings <- c("apple", "banana", "canteloupe", "durian",
+             "eggplant", "french fries", "goat cheese",
+             "pizza", "99 red balloons", "101 dalmatians",
+             "route 66")
+```
+
+```{r}
+strings
+```
+
+
+For each question below, fill in the R code to produce the desired output.
+
+17.
+
+```{r, eval=F}
+str_subset(strings, ...)
+```
+
+```{r, echo=F}
+str_subset(strings, "\\d+")
+```
+
+18.
+
+```{r, eval=F}
+str_subset(strings, ...)
+```
+
+```{r, echo=F}
+str_subset(strings, "^\\d+")
+```
+
+19.
+
+```{r, eval=F}
+str_subset(strings, ...)
+```
+
+```{r, echo=F}
+str_subset(strings, "a")
+```
+
+20.
+
+```{r, eval=F}
+str_subset(strings, ...)
+```
+
+```{r, echo=F}
+str_subset(strings, "\\s")
+```
+
+21.
+
+```{r, eval=F}
+str_subset(strings, ...)
+```
+
+```{r, echo=F}
+str_subset(strings, "(.)\\1{1}")
+```
+
+
+
+# Reading code
+
+For each of the following questions, either write the output of the code, or explain why it gives an error. (Some questions will run correctly, others will cause errors)
+
+22.
+
+```{r, eval=F}
+x <- list()
+for(i in 1:10){
+  x[i] <- i
+}
+x[2] + 1
+```
+
+23.
+
+```{r, eval=F}
+nsim <- 1000 # number of games
+results <- rep(NA, nsim)
+
+for(i in 1:nsim){
+  # each game starts with the marker in the middle
+  marker <- 0
+  
+  while(abs(marker) < 0){
+    robotA <- runif(1, 0, 0.5)
+    robotB <- runif(1, 0, 0.5)
+    marker <- marker + robotA - robotB
+  }
+  
+  # check whether robot A wins
+  results[i] <- marker >= 0.5
+}
+
+# fraction of the time that robot A wins
+mean(results)
+```
+
+
+24.
+
+```{r, eval=F}
+mat <- matrix(0, nrow=5, ncol=3)
+for(i in 1:5){
+  for(j in 1:3){
+    mat <- i + j
+  }
+}
+
+mat
+```
+
+25.
+
+```{r, eval=F}
+mat <- matrix(0, nrow=5, ncol=3)
+for(i in 1:5){
+  for(j in 1:3){
+    mat[j, i] <- i + j
+  }
+}
+
+mat
+```
+
+26.
+
+```{r, eval=F}
+mat <- matrix(1, 3, 3)
+for(i in 2:3){
+  for(j in 2:3){
+    mat[i,j] <- mat[i-1, j-1] + mat[i, j-1]
+  }
+}
+
+mat
+```
+
+
+27.
+
+```{r, eval=F}
+f1 <- function(x = 1){
+  return(x + 1)
+}
+g1 <- function(x){
+  return(f1() + x)
+}
+
+f1(g1(3))
+```
+
+28.
+
+```{r, eval=F}
+f1 <- function(n, groups){
+  x <- matrix(1, nrow=n, ncol=n)
+  unique_groups = unique(groups)
+  means <- matrix(nrow = length(unique_groups), ncol = n)
+  for(i in 1:length(unique_groups)){
+    means[i,] <- colMeans(x[groups == unique_groups[i],])
+  }
+  
+  return(means)
+}
+
+f1(5, groups = c(1, 1, 2, 2, 2))
+```
+
+
+
+# Improving code efficiency
+
+29. Re-write the following code to run as efficiently as you can.
+
+```{r, eval=F}
+x <- c()
+for(i in 1:100){
+  x <- c(x, runif(1))
+}
+```
+
+# Probability simulation
+
+You have 40 cards, with 4 different colors. Two cards are picked at random (without replacement). What is the probability that the two cards chosen have different numbers and different colors?
+
+30. Write a simulation to estimate the probability.
+
+# Another probability simulation
+
+An election is held between two candidates. Candidate A wins the election with $p$ votes, while candidate B loses with $q < p$ votes. Given these final vote counts, what is the probability that, when the votes are tallied, candidate $A$ has more votes than candidate $B$ throughout the count? (So candidate A has more votes after 1 vote has been counted, after 2 votes have been counted, etc.)
+
+31. Below is code that attempts to estimate this probability, with $p = 20$ and $q = 10$. It is very wrong. Explain why.
+
+```{r, eval=F}
+p <- 20
+q <- 10
+nsim <- 1000
+votes <- rep(c(0, 1), times = c(q, p))
+results <- rep(NA, nsim)
+
+for(i in 1:nsim){
+  shuffled_votes <- sample(votes, p+q, replace=F)
+  results[i] <- sum(shuffled_votes) > sum(1 - shuffled_votes)
+}
+
+mean(results)
+```
+
+32. Write code that correctly estimates the probability, given $p$ and $q$.
+
+
+# Statistical simulation
+
+In homework, you learned about the k-means clustering algorithm. Given a dataset and a number of clusters $k$, the k-means algorithm divides the data into $k$ groups.
+
+Suppose that you have data $X_1,...,X_n$. Each observation $X_i$ comes from one of three groups, with means $\mu_1, \mu_2, \mu_3$. Let $G_i$ be the group for $X_i$, and suppose that $X_i \sim N(\mu_{G_i}, 1)$.
+
+We observe $X_1,...,X_n$, but we don't get to see the actual groups $G_1,...,G_n$. Instead, we are going to try to estimate the group assignments using the k-means algorithm, with $k=3$. We want to estimate the probability that we correctly assign groups for all observations $X_i$, and explore how that probability changes with $\mu_1, \mu_2$, and $\mu_3$.
+
+33. Design a simulation study to answer this question. You do not need to write code, but you must describe each of the ADEMP steps in enough detail that I could implement your simulation study.
+
