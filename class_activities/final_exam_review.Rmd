@@ -517,7 +517,7 @@ for(i in 1:100){
 
 # Probability simulation
 
-You have 40 cards, with 4 different colors. Two cards are picked at random (without replacement). What is the probability that the two cards chosen have different numbers and different colors?
+You have 40 cards, with 4 different colors. Cards for each color are numbered 1--10. Two cards are picked at random (without replacement). What is the probability that the two cards chosen have different numbers and different colors?
 
 30. Write a simulation to estimate the probability.
 

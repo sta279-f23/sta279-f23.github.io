@@ -344,104 +344,104 @@ color: #333333;
 <li>Original data:</li>
 </ol>
 <pre><code>## # A tibble: 10 × 4
-##    species   island    bill_length_mm bill_depth_mm
-##    &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Chinstrap Dream               51.9          19.5
-##  2 Gentoo    Biscoe              45.5          14.5
-##  3 Adelie    Torgersen           44.1          18  
-##  4 Gentoo    Biscoe              40.9          13.7
-##  5 Adelie    Dream               40.6          17.2
-##  6 Gentoo    Biscoe              45.5          13.7
-##  7 Gentoo    Biscoe              47.5          14  
-##  8 Adelie    Biscoe              38.6          17.2
-##  9 Adelie    Biscoe              38.1          16.5
-## 10 Gentoo    Biscoe              49.5          16.2</code></pre>
+##    species island    bill_length_mm bill_depth_mm
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Gentoo  Biscoe              54.3          15.7
+##  2 Gentoo  Biscoe              45.2          14.8
+##  3 Adelie  Biscoe              37.7          18.7
+##  4 Adelie  Torgersen           39.3          20.6
+##  5 Adelie  Dream               36            18.5
+##  6 Adelie  Dream               40.2          17.1
+##  7 Adelie  Torgersen           38.5          17.9
+##  8 Gentoo  Biscoe              43.8          13.9
+##  9 Gentoo  Biscoe              51.5          16.3
+## 10 Adelie  Dream               41.1          19</code></pre>
 <p>Output:</p>
-<pre><code>## # A tibble: 5 × 3
-##   species   island        n
-##   &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;
-## 1 Adelie    Biscoe        2
-## 2 Adelie    Dream         1
-## 3 Adelie    Torgersen     1
-## 4 Chinstrap Dream         1
-## 5 Gentoo    Biscoe        5</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   species island        n
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;
+## 1 Adelie  Biscoe        1
+## 2 Adelie  Dream         3
+## 3 Adelie  Torgersen     2
+## 4 Gentoo  Biscoe        4</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Original data:</li>
 </ol>
 <pre><code>## # A tibble: 10 × 4
-##    species   island    bill_length_mm bill_depth_mm
-##    &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Chinstrap Dream               51.9          19.5
-##  2 Gentoo    Biscoe              45.5          14.5
-##  3 Adelie    Torgersen           44.1          18  
-##  4 Gentoo    Biscoe              40.9          13.7
-##  5 Adelie    Dream               40.6          17.2
-##  6 Gentoo    Biscoe              45.5          13.7
-##  7 Gentoo    Biscoe              47.5          14  
-##  8 Adelie    Biscoe              38.6          17.2
-##  9 Adelie    Biscoe              38.1          16.5
-## 10 Gentoo    Biscoe              49.5          16.2</code></pre>
+##    species island    bill_length_mm bill_depth_mm
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Gentoo  Biscoe              54.3          15.7
+##  2 Gentoo  Biscoe              45.2          14.8
+##  3 Adelie  Biscoe              37.7          18.7
+##  4 Adelie  Torgersen           39.3          20.6
+##  5 Adelie  Dream               36            18.5
+##  6 Adelie  Dream               40.2          17.1
+##  7 Adelie  Torgersen           38.5          17.9
+##  8 Gentoo  Biscoe              43.8          13.9
+##  9 Gentoo  Biscoe              51.5          16.3
+## 10 Adelie  Dream               41.1          19</code></pre>
 <p>Output:</p>
-<pre><code>## # A tibble: 5 × 3
+<pre><code>## # A tibble: 4 × 3
 ## # Groups:   island [3]
-##   island    species   mean_length
-##   &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;
-## 1 Biscoe    Adelie           38.4
-## 2 Biscoe    Gentoo           45.8
-## 3 Dream     Adelie           40.6
-## 4 Dream     Chinstrap        51.9
-## 5 Torgersen Adelie           44.1</code></pre>
+##   island    species mean_length
+##   &lt;fct&gt;     &lt;fct&gt;         &lt;dbl&gt;
+## 1 Biscoe    Adelie         37.7
+## 2 Biscoe    Gentoo         48.7
+## 3 Dream     Adelie         39.1
+## 4 Torgersen Adelie         38.9</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Original data:</li>
 </ol>
 <pre><code>## # A tibble: 10 × 4
-##    species   island    bill_length_mm bill_depth_mm
-##    &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Chinstrap Dream               51.9          19.5
-##  2 Gentoo    Biscoe              45.5          14.5
-##  3 Adelie    Torgersen           44.1          18  
-##  4 Gentoo    Biscoe              40.9          13.7
-##  5 Adelie    Dream               40.6          17.2
-##  6 Gentoo    Biscoe              45.5          13.7
-##  7 Gentoo    Biscoe              47.5          14  
-##  8 Adelie    Biscoe              38.6          17.2
-##  9 Adelie    Biscoe              38.1          16.5
-## 10 Gentoo    Biscoe              49.5          16.2</code></pre>
+##    species island    bill_length_mm bill_depth_mm
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Gentoo  Biscoe              54.3          15.7
+##  2 Gentoo  Biscoe              45.2          14.8
+##  3 Adelie  Biscoe              37.7          18.7
+##  4 Adelie  Torgersen           39.3          20.6
+##  5 Adelie  Dream               36            18.5
+##  6 Adelie  Dream               40.2          17.1
+##  7 Adelie  Torgersen           38.5          17.9
+##  8 Gentoo  Biscoe              43.8          13.9
+##  9 Gentoo  Biscoe              51.5          16.3
+## 10 Adelie  Dream               41.1          19</code></pre>
 <p>Output:</p>
 <pre><code>## # A tibble: 10 × 5
-##    species   island    bill_length_mm bill_depth_mm bill_ratio
-##    &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
-##  1 Chinstrap Dream               51.9          19.5       2.66
-##  2 Gentoo    Biscoe              45.5          14.5       3.14
-##  3 Adelie    Torgersen           44.1          18         2.45
-##  4 Gentoo    Biscoe              40.9          13.7       2.99
-##  5 Adelie    Dream               40.6          17.2       2.36
-##  6 Gentoo    Biscoe              45.5          13.7       3.32
-##  7 Gentoo    Biscoe              47.5          14         3.39
-##  8 Adelie    Biscoe              38.6          17.2       2.24
-##  9 Adelie    Biscoe              38.1          16.5       2.31
-## 10 Gentoo    Biscoe              49.5          16.2       3.06</code></pre>
+##    species island    bill_length_mm bill_depth_mm bill_ratio
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Gentoo  Biscoe              54.3          15.7       3.46
+##  2 Gentoo  Biscoe              45.2          14.8       3.05
+##  3 Adelie  Biscoe              37.7          18.7       2.02
+##  4 Adelie  Torgersen           39.3          20.6       1.91
+##  5 Adelie  Dream               36            18.5       1.95
+##  6 Adelie  Dream               40.2          17.1       2.35
+##  7 Adelie  Torgersen           38.5          17.9       2.15
+##  8 Gentoo  Biscoe              43.8          13.9       3.15
+##  9 Gentoo  Biscoe              51.5          16.3       3.16
+## 10 Adelie  Dream               41.1          19         2.16</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Original data:</li>
 </ol>
 <pre><code>## # A tibble: 10 × 4
-##    species   island    bill_length_mm bill_depth_mm
-##    &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Chinstrap Dream               51.9          19.5
-##  2 Gentoo    Biscoe              45.5          14.5
-##  3 Adelie    Torgersen           44.1          18  
-##  4 Gentoo    Biscoe              40.9          13.7
-##  5 Adelie    Dream               40.6          17.2
-##  6 Gentoo    Biscoe              45.5          13.7
-##  7 Gentoo    Biscoe              47.5          14  
-##  8 Adelie    Biscoe              38.6          17.2
-##  9 Adelie    Biscoe              38.1          16.5
-## 10 Gentoo    Biscoe              49.5          16.2</code></pre>
+##    species island    bill_length_mm bill_depth_mm
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Gentoo  Biscoe              54.3          15.7
+##  2 Gentoo  Biscoe              45.2          14.8
+##  3 Adelie  Biscoe              37.7          18.7
+##  4 Adelie  Torgersen           39.3          20.6
+##  5 Adelie  Dream               36            18.5
+##  6 Adelie  Dream               40.2          17.1
+##  7 Adelie  Torgersen           38.5          17.9
+##  8 Gentoo  Biscoe              43.8          13.9
+##  9 Gentoo  Biscoe              51.5          16.3
+## 10 Adelie  Dream               41.1          19</code></pre>
 <p>Output:</p>
-<pre><code>## # A tibble: 1 × 4
+<pre><code>## # A tibble: 3 × 4
 ##   species island bill_length_mm bill_depth_mm
 ##   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-## 1 Adelie  Dream            40.6          17.2</code></pre>
+## 1 Adelie  Dream            36            18.5
+## 2 Adelie  Dream            40.2          17.1
+## 3 Adelie  Dream            41.1          19</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Do this question without explicitly listing the columns.</li>
 </ol>
@@ -506,19 +506,19 @@ color: #333333;
 <li>Original data:</li>
 </ol>
 <pre><code>##   id group value
-## 1  1     x     1
+## 1  1     x     6
 ## 2  1     y     1
 ## 3  2     x     4
 ## 4  2     y     4
-## 5  3     x     6
-## 6  3     y     3</code></pre>
+## 5  3     x     4
+## 6  3     y     1</code></pre>
 <p>Output:</p>
 <pre><code>## # A tibble: 3 × 3
 ##      id     x     y
 ##   &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
-## 1     1     1     1
+## 1     1     6     1
 ## 2     2     4     4
-## 3     3     6     3</code></pre>
+## 3     3     4     1</code></pre>
 </div>
 <div id="joins" class="section level2">
 <h2>Joins</h2>
@@ -749,7 +749,7 @@ color: #333333;
 </div>
 <div id="probability-simulation" class="section level1">
 <h1>Probability simulation</h1>
-<p>You have 40 cards, with 4 different colors. Two cards are picked at random (without replacement). What is the probability that the two cards chosen have different numbers and different colors?</p>
+<p>You have 40 cards, with 4 different colors. Cards for each color are numbered 1–10. Two cards are picked at random (without replacement). What is the probability that the two cards chosen have different numbers and different colors?</p>
 <ol start="30" style="list-style-type: decimal">
 <li>Write a simulation to estimate the probability.</li>
 </ol>

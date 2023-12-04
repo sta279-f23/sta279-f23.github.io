@@ -1,0 +1,479 @@
+---
+title: "Final exam review solutions"
+format: 
+  html:
+    embed-resources: true
+editor: source
+author: "Ciaran Evans"
+---
+
+
+1. 
+
+```{r message=F, warning=F}
+library(tidyverse)
+library(palmerpenguins)
+
+sub_data <- penguins |>
+  slice_sample(n=10) |>
+  select(species, island, bill_length_mm, bill_depth_mm)
+```
+
+```{r}
+sub_data
+
+sub_data |>
+  count(species, island)
+```
+
+2.
+
+```{r}
+sub_data |>
+  group_by(island, species) |>
+  summarize(mean_length = mean(bill_length_mm, na.rm=T))
+```
+
+3.
+
+```{r}
+sub_data |>
+  mutate(bill_ratio = bill_length_mm/bill_depth_mm)
+```
+
+
+4.
+
+```{r}
+sub_data |>
+  filter(species == "Adelie", 
+         island == "Dream")
+```
+
+
+5.
+
+```{r}
+ex_df <- data.frame(
+  x1 = c(1, 2, 3),
+  x2 = c("a", "b", "c"),
+  x3 = c(3, 1, 4),
+  y1 = c("d", "e", "f"),
+  y2 = c(2, 7, 9),
+  y3 = c(7, 1, 2)
+)
+
+ex_df
+```
+
+```{r}
+ex_df |>
+  select(where(is.numeric))
+```
+
+6.
+
+```{r}
+ex_df |>
+  select(starts_with("x"))
+```
+
+
+7.
+
+```{r}
+ex_df |>
+  summarize(across(starts_with("x") & where(is.numeric), 
+                   mean, .names = "mean_{.col}"))
+```
+
+
+8.
+
+```{r}
+ex_df <- data.frame(
+  id = c(1, 2, 3),
+  x_1 = c(3, 1, 4),
+  x_2 = c(5, 8, 9),
+  y_1 = c(0, 1, 2),
+  y_2 = c(2, 7, 9)
+)
+
+ex_df
+```
+
+```{r}
+ex_df |>
+  pivot_longer(cols = -id, names_to = c("group", "obs"), names_sep = "_")
+```
+
+
+9.
+
+```{r}
+ex_df <- data.frame(
+  id = c(1, 1, 2, 2, 3, 3),
+  group = c("x", "y", "x", "y", "x", "y"),
+  value = sample(1:6, replace=T)
+)
+
+ex_df
+```
+
+```{r}
+ex_df |>
+  pivot_wider(id_cols = id, names_from = group, values_from = value)
+```
+
+
+10.
+
+```{r}
+df1 <- data.frame(
+  id = c(1, 2, 3),
+  x = c(7, 9, 13)
+)
+
+df2 <- data.frame(
+  id = c(1, 2, 4),
+  y = c(10, 12, 14)
+)
+```
+
+```{r}
+df1
+
+df2
+```
+
+```{r}
+df1 |>
+  left_join(df2, join_by(id))
+```
+
+
+11.
+
+```{r}
+df1 |>
+  inner_join(df2, join_by(id))
+```
+
+
+12.
+
+```{r}
+df1 = data.frame(
+  a_x = 1,
+  a_y = 2,
+  b_x = 2,
+  b_y = 3
+)
+
+df2 = data.frame(
+  id = c("a", "b"),
+  z = c(4, 5)
+)
+```
+
+```{r}
+df1
+
+df2
+```
+
+```{r}
+df1 |> 
+  pivot_longer(cols = -c(), names_to = c("id", ".value"), names_sep = "_") |>
+  left_join(df2, join_by(id))
+```
+
+
+13.
+
+```{r}
+strings <- c(
+  "George Washington: February 22, 1732",
+  "Thomas Jefferson: April 13, 1743",
+  "Abraham Lincoln: February 12, 1809",
+  "Theodore Roosevelt: October 27, 1858"
+)
+
+strings
+```
+
+```{r}
+str_extract(strings, ".+(?=:)")
+```
+
+14.
+
+```{r}
+str_extract(strings, "(?<=: ).+")
+```
+
+15.
+
+```{r}
+str_extract(strings, "(?<=\\s).+(?=:)")
+```
+
+16.
+
+```{r}
+str_extract(strings, "(?<=, ).+")
+```
+
+
+17.
+
+```{r}
+strings <- c("apple", "banana", "canteloupe", "durian",
+             "eggplant", "french fries", "goat cheese",
+             "pizza", "99 red balloons", "101 dalmatians",
+             "route 66")
+```
+
+```{r}
+strings
+```
+
+```{r}
+str_subset(strings, "\\d+")
+```
+
+
+18.
+
+```{r}
+str_subset(strings, "^\\d+")
+```
+
+
+19.
+
+```{r}
+str_subset(strings, "a")
+```
+
+20.
+
+```{r}
+str_subset(strings, "\\s")
+```
+
+
+21.
+
+```{r}
+str_subset(strings, "(.)\\1{1}")
+```
+
+22.
+
+```{r, error=T}
+x <- list()
+for(i in 1:10){
+  x[i] <- i
+}
+x[2] + 1
+```
+
+`x[2]` is a list, so we can't add 1. If we want to add 1 to the second element of `x`, we should use `x[[2]] + 1`
+
+23.
+
+```{r, error=T}
+nsim <- 1000 # number of games
+results <- rep(NA, nsim)
+
+for(i in 1:nsim){
+  # each game starts with the marker in the middle
+  marker <- 0
+  
+  while(abs(marker) < 0){
+    robotA <- runif(1, 0, 0.5)
+    robotB <- runif(1, 0, 0.5)
+    marker <- marker + robotA - robotB
+  }
+  
+  # check whether robot A wins
+  results[i] <- marker >= 0.5
+}
+
+# fraction of the time that robot A wins
+mean(results)
+```
+
+The output of this code will be 0, because the while loop never runs (the absolute value of a number can never be less than 0).
+
+
+24.
+
+```{r, error=T}
+mat <- matrix(0, nrow=5, ncol=3)
+for(i in 1:5){
+  for(j in 1:3){
+    mat <- i + j
+  }
+}
+
+mat
+```
+
+`mat` starts off as a matrix, but then gets over-written to just be a number.
+
+25.
+
+```{r, error=T}
+mat <- matrix(0, nrow=5, ncol=3)
+for(i in 1:5){
+  for(j in 1:3){
+    mat[j, i] <- i + j
+  }
+}
+
+mat
+```
+
+Using `mat[i,j]` would fix the error.
+
+26.
+
+```{r, error=T}
+mat <- matrix(1, 3, 3)
+for(i in 2:3){
+  for(j in 2:3){
+    mat[i,j] <- mat[i-1, j-1] + mat[i, j-1]
+  }
+}
+
+mat
+```
+
+
+27.
+
+```{r, error=T}
+f1 <- function(x = 1){
+  return(x + 1)
+}
+g1 <- function(x){
+  return(f1() + x)
+}
+
+f1(g1(3))
+```
+
+28.
+
+```{r, error=T}
+f1 <- function(n, groups){
+  x <- matrix(1, nrow=n, ncol=n)
+  unique_groups = unique(groups)
+  means <- matrix(nrow = length(unique_groups), ncol = n)
+  for(i in 1:length(unique_groups)){
+    means[i,] <- colMeans(x[groups == unique_groups[i],])
+  }
+  
+  return(means)
+}
+
+f1(5, groups = c(1, 1, 2, 2, 2))
+```
+
+
+29.
+
+```{r, eval=F}
+x <- runif(100)
+```
+
+30.
+
+```{r}
+set.seed(442)
+
+nsim <- 1000
+results <- rep(NA, nsim)
+
+card_numbers <- rep(1:10, 4)
+card_colors <- rep(1:4, each=10)
+
+for(i in 1:nsim){
+  cards_drawn <- sample(1:40, 2, replace=F)
+  results[i] <- (card_numbers[cards_drawn[1]] != card_numbers[cards_drawn[2]]) &
+    (card_colors[cards_drawn[1]] != card_colors[cards_drawn[2]])
+}
+
+mean(results)
+```
+
+
+31.
+
+```{r, eval=F}
+p <- 20
+q <- 10
+nsim <- 1000
+votes <- rep(c(0, 1), times = c(q, p))
+results <- rep(NA, nsim)
+
+for(i in 1:nsim){
+  shuffled_votes <- sample(votes, p+q, replace=F)
+  results[i] <- sum(shuffled_votes) > sum(1 - shuffled_votes)
+}
+
+mean(results)
+```
+
+This code doesn't work because it doesn't check anything about the counting process -- it only looks at the final count. And regardless how we shuffle the votes, the final counts will remain the same. What we need to do instead is look at the count for each candidates after each vote has been counted.
+
+32.
+
+```{r}
+p <- 20
+q <- 10
+nsim <- 1000
+votes <- rep(c(0, 1), times = c(q, p))
+results <- rep(1, nsim)
+
+for(i in 1:nsim){
+  shuffled_votes <- sample(votes, p+q, replace=F)
+  count_a <- 0
+  count_b <- 0
+  for(j in 1:(p+q)){
+    count_a <- count_a + shuffled_votes[j]
+    count_b <- count_b + (1-shuffled_votes[j])
+    if(count_b >= count_a){
+      results[i] <- 0
+    }
+  }
+}
+
+mean(results)
+```
+
+
+
+33.
+
+A: How does the "distance" between groups impact performance of the k-means algorithm?
+
+D: Generate data $X_1,...,X_n$ with $n = 300$. Suppose 100 observations in each group, with $G_1,...,G_{100} = 1$, $G_{101},...,G_{200} = 2$, and $G_{201},...,G_{300} = 3$. Each $X_i$ is simulated from
+
+$$X_i \sim N(\mu_{G_i}, 1)$$
+
+To examine the impact of distance between groups, we will let $\mu_2 = 0$ and consider all combinations of $\mu_1 = -1, -2, -3$ and $\mu_3 = 1, 2, 3$.
+
+E: Group assignments for all observations
+
+M: Use the $k$-means algorithm (`kmeans` function in R) to assign groups. We will assume we know the true number of groups (3), so the "correct" $k=3$ is used.
+
+P: The probability that all group assignments are correct. (Alternatively, could look at the expected fraction of group assignments which are correct)
+
+
+
+
+
+
