@@ -26,6 +26,15 @@ sub_data |>
   count(species, island)
 ```
 
+```{python}
+import pandas as pd
+
+sub_data = r.sub_data
+(sub_data.groupby(by = ['species', 'island'])
+         .agg(n = ('bill_length_mm', 'count')))
+```
+
+
 2.
 
 ```{r}
@@ -34,11 +43,23 @@ sub_data |>
   summarize(mean_length = mean(bill_length_mm, na.rm=T))
 ```
 
+```{python}
+(sub_data.groupby(by = ['island', 'species'])
+         .agg(mean = ('bill_length_mm', 'mean'))
+         .reset_index()
+         .dropna())
+```
+
+
 3.
 
 ```{r}
 sub_data |>
   mutate(bill_ratio = bill_length_mm/bill_depth_mm)
+```
+
+```{python}
+sub_data.assign(bill_ratio = sub_data['bill_length_mm']/sub_data['bill_depth_mm'])
 ```
 
 
@@ -48,6 +69,10 @@ sub_data |>
 sub_data |>
   filter(species == "Adelie", 
          island == "Dream")
+```
+
+```{python}
+sub_data.query('species == "Adelie" & island == "Dream"')
 ```
 
 
@@ -107,6 +132,15 @@ ex_df |>
   pivot_longer(cols = -id, names_to = c("group", "obs"), names_sep = "_")
 ```
 
+```{python}
+ex_df = r.ex_df
+
+ex_df_new = ex_df.melt(id_vars = 'id', var_name = 'group', value_name = 'value')
+ex_df_new[['group', 'obs']] = ex_df_new['group'].str.split('_', expand=True)
+ex_df_new
+```
+
+
 
 9.
 
@@ -124,6 +158,13 @@ ex_df
 ex_df |>
   pivot_wider(id_cols = id, names_from = group, values_from = value)
 ```
+
+```{python}
+ex_df = r.ex_df
+(ex_df.pivot(columns = 'group', values = 'value', index = 'id')
+      .reset_index())
+```
+
 
 
 10.
@@ -151,6 +192,14 @@ df1 |>
   left_join(df2, join_by(id))
 ```
 
+```{python}
+df1 = r.df1
+df2 = r.df2
+
+pd.merge(df1, df2, how = 'left', left_on = 'id', right_on = 'id')
+```
+
+
 
 11.
 
@@ -159,6 +208,9 @@ df1 |>
   inner_join(df2, join_by(id))
 ```
 
+```{python}
+pd.merge(df1, df2, how = 'inner', left_on = 'id', right_on = 'id')
+```
 
 12.
 
@@ -187,6 +239,18 @@ df1 |>
   pivot_longer(cols = -c(), names_to = c("id", ".value"), names_sep = "_") |>
   left_join(df2, join_by(id))
 ```
+
+```{python}
+df1 = r.df1
+df2 = r.df2
+
+df1_new = df1.melt(id_vars = [], var_name = 'id')
+df1_new[['id', 'group']] = df1_new['id'].str.split('_', expand=True)
+df1_new = df1_new.pivot(columns = 'group', values='value', index = 'id').reset_index()
+
+pd.merge(df1_new, df2, how='left', left_on = 'id', right_on = 'id')
+```
+
 
 
 13.
